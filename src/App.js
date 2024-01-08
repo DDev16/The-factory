@@ -1,315 +1,294 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import hypnotizeEyes from './Chibi-Traits/Eyes/hypnotize eyes.png';
-import originalHead from './Chibi-Traits/Head/orginal head.png';
-import originalBody from './Chibi-Traits/Body/orginal body.png';
-import robotBody from './Chibi-Traits/Body/robotBody.png';
-import pinkGradientbg from './Chibi-Traits/Background/pinkGradientbg.png';
-import greenGradientbg from './Chibi-Traits/Background/greenGradientbg.png';
-import blueGradientbg from './Chibi-Traits/Background/blueGradientbg.png';
-import yellowGradientbg from './Chibi-Traits/Background/yellowGradientbg.png';
-import AppBackground from './AppBackground.gif';
-import GreenAlienHead from './Chibi-Traits/Head/greenAlien.png';
-import humanoidHead from './Chibi-Traits/Head/humanoid1.png';
-import robotHead from './Chibi-Traits/Head/robot.png';    
-import rainbowspiraleyes from './Chibi-Traits/Eyes/rainbowspiraleyes.png';
-import alienHead from './Chibi-Traits/Head/alien.png';
-import kitty from './Chibi-Traits/Hat/kitty.png';
-import vampiremouth from './Chibi-Traits/Mouth/vampiremouth.png';
-import doubleeyes from './Chibi-Traits/Eyes/doubleeyes.png';
-import butter from './Chibi-Traits/Mouth/butter.png';
-import SGBbeanie from './Chibi-Traits/Hat/SGBbeanie.png';
-import toad from './Chibi-Traits/Hat/toad.png';
-import spinnycap from './Chibi-Traits/Hat/spinnycap.png';
-import mohawk from './Chibi-Traits/Hat/mohawk.png';
-import yellowEyes from './Chibi-Traits/Eyes/yellowEyes.png';
-import Samaraui from './Chibi-Traits/Hat/samaraui.png';
-import greenBody from './Chibi-Traits/Body/greenbody.png';
-import blackEyes from './Chibi-Traits/Eyes/blackEyes.png';
-import blueEyes from './Chibi-Traits/Eyes/blueyes.png';
-import goldHead from './Chibi-Traits/Head/goldHead.png';
-import goldTexudo from './Chibi-Traits/Body/gold suit.png'; 
-import monkey from './Chibi-Traits/Head/monkey.png';
+import React, { useEffect, useState } from 'react';
+import Web3 from 'web3';
+import { AppContainer, Header, MainLayout, Sidebar, TraitSelectionContainer, TraitButton, ChibiCanvas, TraitStyle, StyledInput, StyledButton } from './Styles/StyledComponents.js';
+import contractABI from './abi/abi.json';
+import traitImageMap from './TraitMap.js';
+import { StyledTextarea } from './Styles/StyledComponents.js';
+const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdGOTA4QjNBRDJGMDFGNjE2MjU1MTA0ODIwNjFmNTY5Mzc2QTg3MjYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3OTI5MDE5ODQyMCwibmFtZSI6Ik5FV0VTVCJ9.FGtIrIhKhgSx-10iVlI4sM_78o7jSghZsG5BpqZ4xfA';
 
-// Styled components
-const AppContainer = styled.div`
-  text-align: center;
-  font-family: 'Rubik Doodle Shadow', sans-serif;
-  background-img: url(${AppBackground});
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 150vh;
-  border-top: 10px  dotted #ddd;
+const createMetadataJSON = (imageCID, chibiTraits, nftName, nftDescription) => {
+  // Define a mapping from indices to descriptive names
+  const traitNames = {
+    hatOptions: ["Kitty", "SGB Beanie", "Toad", "Spinnycap", "Mohawk", "Samaraui"],
+    headOptions: ["Original Head", "Green Alien Head", "Humanoid Head", "Robot Head", "Alien Head", "Gold Head", "Monkey"],
+    mouthOptions: ["Vampire Mouth", "Butter"],
+    eyeColorOptions: ["Hypnotize Eyes", "Rainbow Spiral Eyes", "Double Eyes", "Yellow Eyes", "Black Eyes", "Blue Eyes"],
+    bodyOptions: ["Robot Body", "Original Body", "Green Body", "Gold Tuxedo"],
+    backgroundOptions: ["Pink Gradient", "Green Gradient", "Blue Gradient", "Yellow Gradient"]
+  };
 
-`;
+  // Create an array of attributes based on the selected traits
+  const attributes = Object.entries(chibiTraits).map(([traitType, traitValue]) => {
+    // Find the index in the traitImageMap that corresponds to the traitValue
+    const traitIndex = Object.keys(traitImageMap[traitType]).find(key => traitImageMap[traitType][key] === traitValue);
 
+    // Use the index to get the descriptive name from the mapping
+    const readableName = traitIndex !== undefined ? traitNames[traitType][traitIndex] : 'None';
 
-const MainLayout = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  
+    return {
+      trait_type: traitType.replace('Options', ''), // Removing 'Options' from the trait type
+      value: readableName
+    };
+  });
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-
-
-const Sidebar = styled.aside`
-  flex: 0 0 200px;
-  padding: 20px;
-  border-right: 1px solid #ddd;
-  height: 1024px;
-  overflow-y: auto;
-  background-color: #333;
-  width: 50%;
-
-  @media (max-width: 768px) {
-    height: auto;
-    width: 80%;
-    border-right: none;
-    border-bottom: 1px solid #ddd;
-  }
-`;
-
-
-const Header = styled.header`
-  font-family: 'Rubik Doodle Shadow, sans-serif';
-  font-size: 10px;
-  color: white;
-
-  @media (max-width: 768px) {
-    font-size: 10px;
-  }
-`;
-
-
-
-const ChibiCanvas = styled.div`
-  position: relative;
-  width: 1024px;
-  height: 1024px;
-  border: 8px solid #ccc;
-  margin-bottom: 20px;
-  border-radius: 16px;
-  background: #ccc;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-
-  @media (max-width: 768px) {
-    width: 90vw;
-    height: 90vw; /* Keep the aspect ratio */
-  }
-`;
-
-
-
-const TraitStyle = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 6px;
-  max-width: 100%;
-  height: auto;
-
-  @media (max-width: 768px) {
-    /* Adjust size and position for smaller screens */
-    width: 100vw; /* Example size, adjust as needed */
-    /* You may also need to adjust 'top' and 'left' properties using percentages or viewport units */
-  }
-`;
-
-
-const TraitSelectionContainer = styled.div`
-  margin: 10px;
-  color: #fff;
-  background-color: #333;
-width: 50%;
-  display: inline-block;
-`;
-
-const TraitButton = styled.button`
-  margin: 5px;
-  padding: 8px 15px;
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #eaeaea;
-  }
-`;
-
-const hatOptions = {
-  [kitty]: 'Kitty',
-  [SGBbeanie]: 'SGB Beanie',
-  [toad]: 'Toad',
-  [spinnycap]: 'Spiny Cap',
-  [mohawk]: 'Mohawk',
-  [Samaraui]: 'Samaraui',
-
+  // Return the metadata JSON
+  return {
+    name: nftName, // Use user-provided name
+    description: nftDescription, // Use user-provided description
+    image: `https://ipfs.io/ipfs/${imageCID}`,
+    attributes: attributes
+  };
 };
 
 
-const headOptions = {
-  [originalHead]: 'Original Head',
-  [GreenAlienHead]: 'Green Alien Head',
-  [humanoidHead]: 'Humanoid Head',
-  [robotHead]: 'Robot Head',
-  [alienHead]: 'Alien Head',
-  [goldHead]: 'Gold Head',
-  [monkey]: 'Monkey',
-  
-};
-
-const mouthOptions = {
-  [vampiremouth]: 'Vampire Mouth',
-  [butter]: 'Butter',
-};
 
 
-const eyeColorOptions = {
-  [hypnotizeEyes]: 'Hypnotize Eyes',
-  [rainbowspiraleyes]: 'Rainbow Spiral Eyes',
-  [doubleeyes]: 'Double Eyes',
-  [yellowEyes]: 'Yellow Eyes',
-  [blackEyes]: 'Black Eyes',
-  [blueEyes]: 'Blue Eyes',
+const uploadMetadata = async (metadata) => {
+  const metadataBlob = new Blob([JSON.stringify(metadata)], { type: 'application/json' });
+  const formData = new FormData();
+  formData.append('file', metadataBlob);
+
+  const response = await fetch('https://api.nft.storage/upload', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`, // Your API key
+    },
+    body: formData,
+  });
+
+  const result = await response.json();
+  return result.value.cid; // Metadata CID
 };
 
-const bodyOptions = {
-  [robotBody]: 'Robot Body',
-  [originalBody]: 'Original Body',
-  [greenBody]: 'Green Body',
-  [goldTexudo]: 'Gold Texudo',
-  
+const createCompositeImage = async (traits) => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 1024; // Set the desired dimensions
+  canvas.height = 1024;
+  const ctx = canvas.getContext('2d');
+
+  // Order of traits as they should appear on the canvas
+  const traitOrder = ['backgroundOptions', 'bodyOptions', 'eyeColorOptions', 'headOptions', 'mouthOptions', 'hatOptions'];
+
+  for (const traitType of traitOrder) {
+    const image = new Image();
+    image.src = traits[traitType];
+    await new Promise((resolve) => {
+      image.onload = () => {
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        resolve();
+      };
+    });
+  }
+
+  return canvas.toDataURL(); // This is your composite image in base64 format
 };
 
-const backgroundOptions = {
-  [pinkGradientbg]: 'Pink Gradient',
-  [greenGradientbg]: 'Green Gradient',
-  [blueGradientbg]: 'Blue Gradient',
-  [yellowGradientbg]: 'Yellow Gradient',
-  // Add other background options here
+
+const uploadToNFTStorage = async (compositeImage) => {
+  // Convert base64 to blob
+  const response = await fetch(compositeImage);
+  const blob = await response.blob();
+
+  // Upload to nft.storage
+  const formData = new FormData();
+  formData.append('file', blob);
+
+  const uploadResponse = await fetch('https://api.nft.storage/upload', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`, // Make sure to keep your API key secure
+    },
+    body: formData,
+  });
+
+  const uploadResult = await uploadResponse.json();
+  return uploadResult.value.cid; // This is the CID of the uploaded image
 };
+
+
+
+const contractAddress = '0xa27bC320252d51EEAA24BCCF6cc003979E485860';
 
 function App() {
+  const [web3, setWeb3] = useState(null);
+  const [account, setAccount] = useState(null);
+  const [contract, setContract] = useState(null);
+  const [nftName, setNftName] = useState(''); // State for NFT name
+  const [nftDescription, setNftDescription] = useState(''); // State for NFT description
+
   const [chibiTraits, setChibiTraits] = useState({
-    hat: [],
-    head: [],
-    mouth: [],
-    eyeColor: [],
-    body: [],
-    background: [],
+    hatOptions: null,
+    headOptions: null,
+    mouthOptions: null,
+    eyeColorOptions: null,
+    bodyOptions: null,
+    backgroundOptions: null,
   });
-  
-  const updateTrait = (traitType, value) => {
-    setChibiTraits(prevTraits => {
-      // Check if the trait is already selected
-      if (prevTraits[traitType].includes(value)) {
-        // Remove the trait if it is already selected
-        return {
-          ...prevTraits,
-          [traitType]: prevTraits[traitType].filter(trait => trait !== value),
-        };
-      } else {
-        // Add the trait if it is not already selected
-        return {
-          ...prevTraits,
-          [traitType]: [...prevTraits[traitType], value],
-        };
+
+  useEffect(() => {
+    if (window.ethereum) {
+      const web3Instance = new Web3(window.ethereum);
+      setWeb3(web3Instance);
+      const chibiFactoryContract = new web3Instance.eth.Contract(contractABI, contractAddress);
+      setContract(chibiFactoryContract);
+    }
+  }, []);
+
+  const connectWallet = async () => {
+    if (window.ethereum) {
+      try {
+        const web3Instance = new Web3(window.ethereum);
+        setWeb3(web3Instance);
+        const accounts = await web3Instance.eth.requestAccounts(); // Requesting account access
+        if (accounts.length > 0) {
+          setAccount(accounts[0]);
+          const chibiFactoryContract = new web3Instance.eth.Contract(contractABI, contractAddress);
+          setContract(chibiFactoryContract);
+        } else {
+          console.error("No accounts found");
+        }
+      } catch (error) {
+        console.error("Error connecting to wallet", error);
       }
-    });
+    } else {
+      console.error("Ethereum wallet not detected");
+    }
+  };
+
+  const mintNFT = async () => {
+    if (!contract) return;
+
+    const traitIndices = {
+      hat: Object.keys(traitImageMap.hatOptions).find(key => traitImageMap.hatOptions[key] === chibiTraits.hatOptions),
+      head: Object.keys(traitImageMap.headOptions).find(key => traitImageMap.headOptions[key] === chibiTraits.headOptions),
+      mouth: Object.keys(traitImageMap.mouthOptions).find(key => traitImageMap.mouthOptions[key] === chibiTraits.mouthOptions),
+      eyeColor: Object.keys(traitImageMap.eyeColorOptions).find(key => traitImageMap.eyeColorOptions[key] === chibiTraits.eyeColorOptions),
+      body: Object.keys(traitImageMap.bodyOptions).find(key => traitImageMap.bodyOptions[key] === chibiTraits.bodyOptions),
+      background: Object.keys(traitImageMap.backgroundOptions).find(key => traitImageMap.backgroundOptions[key] === chibiTraits.backgroundOptions),
+    };
+
+    try {
+      // Create the composite image
+      const compositeImage = await createCompositeImage(chibiTraits);
+
+      // Upload the image to nft.storage and get the image CID
+      const imageCID = await uploadToNFTStorage(compositeImage);
+      console.log(`Image uploaded to nft.storage with CID: ${imageCID}`);
+
+      // Create metadata using the image CID
+      const metadata = createMetadataJSON(imageCID, chibiTraits, nftName, nftDescription);
+
+      // Upload the metadata to nft.storage and get the metadata CID
+      const metadataCID = await uploadMetadata(metadata);
+      console.log(`Metadata uploaded to nft.storage with CID: ${metadataCID}`);
+
+  
+      // 3. Mint the NFT using existing smart contract function
+      const accounts = await web3.eth.getAccounts();
+      await contract.methods.mergeTraitsAndMintNFT(
+        traitIndices.hat, 
+        traitIndices.head, 
+        traitIndices.mouth, 
+        traitIndices.eyeColor, 
+        traitIndices.body, 
+        traitIndices.background
+      ).send({ from: accounts[0] });
+  
+      console.log('NFT minted!');
+    } catch (error) {
+      console.error('Minting failed', error);
+    }
   };
   
+  const updateTrait = (traitType, value) => {
+    setChibiTraits(prevTraits => ({
+      ...prevTraits,
+      [traitType]: traitImageMap[traitType][value],
+    }));
+  };
 
   return (
-    <AppContainer style= {{ backgroundImage: `url(${AppBackground})` }}>
-      <Header>
-        <h1 style={{ fontFamily: 'Rubik Doodle Shadow, sans-serif', fontSize:'80px', Letter:'30px', color: 'white' }}>Chibi Factory</h1>
-      </Header>
-      <MainLayout>
+    <AppContainer>
+ <Header>
+        <h1>Songbird Chibi Factory</h1>
+        <StyledButton onClick={connectWallet}>Connect Wallet</StyledButton>
+        {account && <p>Connected Account: {account}</p>}
+      </Header>   
+         <MainLayout>
         <Sidebar>
-        <TraitSelection traitType="hat" options={Object.keys(hatOptions)} updateTrait={updateTrait} label="Hat" />
-        <TraitSelection traitType="head" options={Object.keys(headOptions)} updateTrait={updateTrait} label="Head" />
-        <TraitSelection traitType="mouth" options={Object.keys(mouthOptions)} updateTrait={updateTrait} label="Mouth" />
-<TraitSelection traitType="eyeColor" options={Object.keys(eyeColorOptions)} updateTrait={updateTrait} label="Eyes" />
-<TraitSelection traitType="body" options={Object.keys(bodyOptions)} updateTrait={updateTrait} label="Body" />
-<TraitSelection traitType="background" options={Object.keys(backgroundOptions)} updateTrait={updateTrait} label="Background" />
+          <TraitSelection traitType="hatOptions" options={Object.keys(traitImageMap.hatOptions)} updateTrait={updateTrait} label="Hat" />
+          <TraitSelection traitType="headOptions" options={Object.keys(traitImageMap.headOptions)} updateTrait={updateTrait} label="Head" />
+          <TraitSelection traitType="mouthOptions" options={Object.keys(traitImageMap.mouthOptions)} updateTrait={updateTrait} label="Mouth" />
+          <TraitSelection traitType="eyeColorOptions" options={Object.keys(traitImageMap.eyeColorOptions)} updateTrait={updateTrait} label="Eye Color" />
+          <TraitSelection traitType="bodyOptions" options={Object.keys(traitImageMap.bodyOptions)} updateTrait={updateTrait} label="Body" />
+          <TraitSelection traitType="backgroundOptions" options={Object.keys(traitImageMap.backgroundOptions)} updateTrait={updateTrait} label="Background" />
 
-</Sidebar>
+        </Sidebar>
         <ChibiDisplay traits={chibiTraits} />
+        
+        <StyledInput 
+        type="text" 
+        value={nftName} 
+        onChange={(e) => setNftName(e.target.value)} 
+        placeholder="Enter NFT Name" 
+      />
+      <StyledTextarea 
+        value={nftDescription} 
+        onChange={(e) => setNftDescription(e.target.value)} 
+        placeholder="Enter NFT Description"
+      />
+      <TraitButton onClick={() => mintNFT()}>Mint NFT</TraitButton>
+
       </MainLayout>
     </AppContainer>
   );
 }
 
 function ChibiDisplay({ traits }) {
+  // Define the order of trait types
+  const traitOrder = ['backgroundOptions', 'bodyOptions', 'eyeColorOptions', 'headOptions', 'mouthOptions', 'hatOptions'];
+
   return (
     <ChibiCanvas>
-      {traits.background.map((backgroundTrait, index) => (
-        <TraitStyle key={index} src={backgroundTrait} alt="Chibi Background" />
-      ))}
-      {traits.body.map((bodyTrait, index) => (
-        <TraitStyle key={index} src={bodyTrait} alt="Chibi Body" />
-      ))}
-      {traits.eyeColor.map((eyeColorTrait, index) => (
-        <TraitStyle key={index} src={eyeColorTrait} alt="Chibi Eyes" />
-      ))}
-      {traits.head.map((headTrait, index) => (
-        <TraitStyle key={index} src={headTrait} alt="Chibi Head" />
-      ))}
-      {traits.mouth.map((mouthTrait, index) => (
-        <TraitStyle key={index} src={mouthTrait} alt="Chibi Mouth" />
-      ))}
-      {traits.hat.map((hatTrait, index) => (
-        <TraitStyle key={index} src={hatTrait} alt="Chibi Hat" />
-      ))}
-      
+      {traitOrder.map((traitType, index) => {
+        const traitValue = traits[traitType];
+        return (
+          traitValue && (
+            <TraitStyle
+              key={index}
+              src={traitValue}
+              alt={`Chibi ${traitType}`}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover'
+              }}
+            />
+          )
+        );
+      })}
     </ChibiCanvas>
   );
 }
 
+
+
 function TraitSelection({ traitType, options, updateTrait, label }) {
-  let optionNames;
-  switch (traitType) {
-    case 'hat':
-      optionNames = hatOptions;
-      break;
-    case 'head':
-      optionNames = headOptions;
-      break;
-    case 'mouth':
-      optionNames = mouthOptions;
-      break;
-    case 'eyeColor':
-      optionNames = eyeColorOptions;
-      break;
-    case 'body':
-      optionNames = bodyOptions;
-      break;
-    case 'background':
-      optionNames = backgroundOptions;
-      break;
-    default:
-      optionNames = {};
-  }
+  return (
+    <TraitSelectionContainer>
+      <h3>{label}</h3>
+      {options.map((option, index) => (
+        <TraitButton key={index} onClick={() => updateTrait(traitType, option)}>
+          {traitType} {option}
+        </TraitButton>
+      ))}
+    </TraitSelectionContainer>
+  );
+}
 
- 
-  
-    return (
-      <TraitSelectionContainer>
-        <h3>{label}</h3>
-        {options.map((option, index) => (
-          <TraitButton key={index} onClick={() => updateTrait(traitType, option)}>
-            {option === '' ? `Remove ${label}` : optionNames[option]}
-          </TraitButton>
-        ))}
-      </TraitSelectionContainer>
-    );
-  }
-  
+export default App;
 
-  export default App;
+

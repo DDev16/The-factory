@@ -1,0 +1,179 @@
+{
+  "attributes": [
+    {
+      "trait_type": "Hat",
+      "options": {
+        "kitty": {
+          "name": "Kitty",
+          "description": "A cute kitty hat.",
+          "image_url": "http://example.com/kitty.png"
+        },
+        "SGBbeanie": {
+          "name": "SGB Beanie",
+          "description": "Stylish SGB branded beanie.",
+          "image_url": "http://example.com/sgbbeanie.png"
+        },
+        "toad": {
+          "name": "Toad",
+          "description": "A toad-styled hat.",
+          "image_url": "http://example.com/toad.png"
+        },
+        "spinnycap": {
+          "name": "Spiny Cap",
+          "description": "A cap with a spiny design.",
+          "image_url": "http://example.com/spinnycap.png"
+        },
+        "mohawk": {
+          "name": "Mohawk",
+          "description": "A bold mohawk hat.",
+          "image_url": "http://example.com/mohawk.png"
+        },
+        "Samaraui": {
+          "name": "Samaraui",
+          "description": "A samurai-inspired hat.",
+          "image_url": "http://example.com/samaraui.png"
+        }
+      }
+    },
+    {
+      "trait_type": "Head",
+      "options": {
+        "originalHead": {
+          "name": "Original Head",
+          "description": "The classic head design.",
+          "image_url": "http://example.com/originalhead.png"
+        },
+        "GreenAlienHead": {
+          "name": "Green Alien Head",
+          "description": "A head of a green alien.",
+          "image_url": "http://example.com/greenalienhead.png"
+        },
+        "humanoidHead": {
+          "name": "Humanoid Head",
+          "description": "A humanoid head.",
+          "image_url": "http://example.com/humanoidhead.png"
+        },
+        "robotHead": {
+          "name": "Robot Head",
+          "description": "A robotic head design.",
+          "image_url": "http://example.com/robothead.png"
+        },
+        "alienHead": {
+          "name": "Alien Head",
+          "description": "A mysterious alien head.",
+          "image_url": "http://example.com/alienhead.png"
+        },
+        "goldHead": {
+          "name": "Gold Head",
+          "description": "A shiny gold head.",
+          "image_url": "http://example.com/goldhead.png"
+        },
+        "monkey": {
+          "name": "Monkey",
+          "description": "A playful monkey head.",
+          "image_url": "http://example.com/monkey.png"
+        }
+      }
+    },
+    {
+      "trait_type": "Mouth",
+      "options": {
+        "vampiremouth": {
+          "name": "Vampire Mouth",
+          "description": "A fearsome vampire mouth.",
+          "image_url": "http://example.com/vampiremouth.png"
+        },
+        "butter": {
+          "name": "Butter",
+          "description": "A quirky butter mouth.",
+          "image_url": "http://example.com/butter.png"
+        }
+      }
+    },
+    {
+      "trait_type": "Eye Color",
+      "options": {
+        "hypnotizeEyes": {
+          "name": "Hypnotize Eyes",
+          "description": "Mysterious hypnotizing eyes.",
+          "image_url": "http://example.com/hypnotizeeyes.png"
+        },
+        "rainbowspiraleyes": {
+          "name": "Rainbow Spiral Eyes",
+          "description": "Colorful spiral eyes.",
+          "image_url": "http://example.com/rainbowspiraleyes.png"
+        },
+        "doubleeyes": {
+          "name": "Double Eyes",
+          "description": "Eyes with a double layer.",
+          "image_url": "http://example.com/doubleeyes.png"
+        },
+        "yellowEyes": {
+          "name": "Yellow Eyes",
+          "description": "Bright yellow eyes.",
+          "image_url": "http://example.com/yelloweyes.png"
+        },
+        "blackEyes": {
+          "name": "Black Eyes",
+          "description": "Deep black eyes.",
+          "image_url": "http://example.com/blackeyes.png"
+        },
+        "blueEyes": {
+          "name": "Blue Eyes",
+          "description": "Vivid blue eyes.",
+          "image_url": "http://example.com/blueeyes.png"
+        }
+      }
+    },
+    {
+      "trait_type": "Body",
+      "options": {
+        "robotBody": {
+          "name": "Robot Body",
+          "description": "A futuristic robot body.",
+          "image_url": "http://example.com/robotbody.png"
+        },
+        "originalBody": {
+          "name": "Original Body",
+          "description": "The classic body design.",
+          "image_url": "http://example.com/originalbody.png"
+        },
+        "greenBody": {
+          "name": "Green Body",
+          "description": "A green colored body.",
+          "image_url": "http://example.com/greenbody.png"
+        },
+        "goldTexudo": {
+          "name": "Gold Texudo",
+          "description": "A luxurious gold tuxedo.",
+          "image_url": "http://example.com/goldtexudo.png"
+        }
+      }
+    },
+    {
+      "trait_type": "Background",
+      "options": {
+        "pinkGradientbg": {
+          "name": "Pink Gradient",
+          "description": "A soothing pink gradient background.",
+          "image_url": "http://example.com/pinkgradient.png"
+        },
+        "greenGradientbg": {
+          "name": "Green Gradient",
+          "description": "A refreshing green gradient background.",
+          "image_url": "http://example.com/greengradient.png"
+        },
+        "blueGradientbg": {
+          "name": "Blue Gradient",
+          "description": "A calming blue gradient background.",
+          "image_url": "http://example.com/bluegradient.png"
+        },
+        "yellowGradientbg": {
+          "name": "Yellow Gradient",
+          "description": "A bright yellow gradient background.",
+          "image_url": "http://example.com/yellowgradient.png"
+        }
+      }
+    }
+  ]
+}
