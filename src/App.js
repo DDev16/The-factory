@@ -107,7 +107,7 @@ const uploadToNFTStorage = async (compositeImage) => {
 
 
 
-const contractAddress = '0xa27bC320252d51EEAA24BCCF6cc003979E485860';
+const contractAddress = '0xacC09486C9e34aa1Dff13b2E64d5482A3648D018';
 
 function App() {
   const [web3, setWeb3] = useState(null);
