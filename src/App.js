@@ -301,6 +301,7 @@ const updateTrait = (traitType, value) => {
     <AppContainer style={{ width: '100%'}}>
         <Navbar/>
 
+
  <Parallax/>
 <Cloud/>
       <Info />
