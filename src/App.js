@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import { AppContainer, Header, MainLayout, Sidebar, TraitSelectionContainer, TraitButton, ChibiCanvas, TraitStyle, StyledInput, StyledButton } from './Styles/StyledComponents.js';
+import { AppContainer, Header, MainLayout, Sidebar, StyledOption, StyledTraitSelectionContainer, StyledSelect, TraitButton, ChibiCanvas, TraitStyle, StyledInput, StyledButton } from './Styles/StyledComponents.js';
 import contractABI from './abi/abi.json';
 import traitImageMap from './TraitMap.js';
 import { StyledTextarea } from './Styles/StyledComponents.js';
@@ -8,7 +8,6 @@ import Navbar from './Components/Navbar.js';
 import placeholderImage from './Images/factory.png';
 import Info from './Components/Info.js';
 import Parallax from './Components/parallax/newparallaxhero.js';
-import clouds from './Images/reversedclouds.png';
 import Cloud from './Components/ReversedCloud/Cloud.js';
 
 const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdGOTA4QjNBRDJGMDFGNjE2MjU1MTA0ODIwNjFmNTY5Mzc2QTg3MjYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3OTI5MDE5ODQyMCwibmFtZSI6Ik5FV0VTVCJ9.FGtIrIhKhgSx-10iVlI4sM_78o7jSghZsG5BpqZ4xfA';
@@ -307,7 +306,7 @@ const updateTrait = (traitType, value) => {
       <Info />
          <MainLayout>
         <Sidebar>
-        <Header style={{top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover'}}> Trait Selectoin</Header>  
+        <Header style={{top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover'}}> Trait Selection</Header>  
         <TraitSelection 
   traitType="hatOptions" 
   options={Object.keys(traitImageMap.hatOptions)} 
@@ -363,9 +362,9 @@ const updateTrait = (traitType, value) => {
         placeholder="Enter NFT Description"
       />
          <TraitButton onClick={() => mintNFT()}>Mint NFT</TraitButton>
-         <p style={{fontSize: '1.5em', color: '#aaa'}}> Please make sure you are connected to the Flare Networks</p>  
-         <p style={{fontSize: '1.5em', color: '#aaa'}}> Ensure you have selected all traits and entered a name and description</p>
-         <p style={{fontSize: '1.5em', color: '#333'}}>Enter the Token ID of the NFT you want to update</p>
+         <p style={{fontSize: '1em', color: '#aaa'}}> Please make sure you are connected to the Flare Networks</p>  
+         <p style={{fontSize: '1em', color: '#aaa'}}> Ensure you have selected all traits and entered a name and description</p>
+         <p style={{fontSize: '1em', color: '#333'}}>Enter the Token ID of the NFT you want to update</p>
          <p style={{fontSize: '1em', color: '#aaa'}}>Note: You can only update NFTs that you own</p>
       <TraitButton onClick={() => updateTokenTraitsAndMetadata()}>Update NFT Traits</TraitButton>
       <StyledInput type='text' value={tokenId} onChange={(e) => setTokenId(e.target.value)} placeholder='Enter Token ID' />
@@ -417,17 +416,17 @@ function ChibiDisplay({ traits }) {
 
 function TraitSelection({ traitType, options, updateTrait, label, traitNames }) {
   return (
-    <TraitSelectionContainer>
-      <h3>{label}</h3>
-      <select onChange={(e) => updateTrait(traitType, e.target.value)}>
-        <option value="">Select {label}</option>
+    <StyledTraitSelectionContainer>
+      <h3 style={{ margin: '0 0 10px' }}>{label}</h3>
+      <StyledSelect onChange={(e) => updateTrait(traitType, e.target.value)}>
+        <StyledOption value="">Select {label}</StyledOption>
         {options.map((option, index) => (
-          <option key={index} value={option}>
+          <StyledOption key={index} value={option}>
             {traitNames[traitType][option]}
-          </option>
+          </StyledOption>
         ))}
-      </select>
-    </TraitSelectionContainer>
+      </StyledSelect>
+    </StyledTraitSelectionContainer>
   );
 }
 

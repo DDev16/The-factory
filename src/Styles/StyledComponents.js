@@ -144,3 +144,45 @@ export const StyledButton = styled.button`
     background: #333;
   }
 `;
+
+
+export const StyledTraitSelectionContainer = styled.div`
+padding: 15px;
+margin: 10px 0;
+border: 2px solid #dedede;
+border-radius: 8px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+background-color: #f9f9f9;
+`;
+
+export const StyledSelect = styled.select`
+width: 100%;
+padding: 10px 15px;
+margin-top: 10px;
+border: 1px solid #ccc;
+border-radius: 6px;
+background-color: white;
+font-size: 16px;
+color: #333;
+cursor: pointer;
+
+&:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+&:hover {
+  border-color: #007bff;
+}
+`;
+
+export const StyledOption = styled.option`
+color: #333;
+background-color: white;
+padding: 8px 12px;
+
+&:hover {
+  background-color: #f2f2f2;
+}
+`;
