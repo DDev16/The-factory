@@ -4,20 +4,23 @@ import styled from 'styled-components';
 
 // Styled components
 export const AppContainer = styled.div`
-  text-align: center;
-  font-family: 'Rubik Doodle Shadow', sans-serif;
-
-  height: 150vh;
-  border-top: 10px  dotted #ddd;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  width: 100%;
+ 
 `;
+
 
 
 export const MainLayout = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 150px;
   align-items: start;
-  
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -26,33 +29,38 @@ export const MainLayout = styled.div`
 `;
 
 
+
 export const Sidebar = styled.aside`
-  flex: 0 0 600px;
-  padding: 20px;
-  border-right: 1px solid #ddd;
-  height: 1024px;
-  overflow-y: auto;
-  background-color: #333;
-  width: 70%;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 768px) {
-    height: auto;
-    width: 80%;
-    border-right: none;
-    border-bottom: 1px solid #ddd;
+    width: 100%;
+    margin-bottom: 20px;
   }
 `;
+
 
 
 export const Header = styled.header`
-  font-family: 'Rubik Doodle Shadow, sans-serif';
-  font-size: 30px;
-  color: white;
+background: linear-gradient(90deg, #3f51b5 0%, #6a82fb 100%);
+  color: #ffffff;
+  width: 100%;
+  border: 1px solid #ffffff;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(250, 250, 250, 0.9);
+  position: absolute
 
-  @media (max-width: 768px) {
-    font-size: 10px;
+  
+
+  p {
+    margin: 5px 0 0;
   }
 `;
+
 
 
 
@@ -72,75 +80,67 @@ export const ChibiCanvas = styled.div`
   }
 `;
 
-
-
 export const TraitStyle = styled.img`
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 6px;
-  max-width: 100%;
-  height: auto;
-
-  @media (max-width: 768px) {
-    /* Adjust size and position for smaller screens */
-    width: 100vw; /* Example size, adjust as needed */
-    /* You may also need to adjust 'top' and 'left' properties using percentages or viewport units */
-  }
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
+
 
 
 export const TraitSelectionContainer = styled.div`
-  margin: 10px;
-  color: #fff;
-  background-color: #333;
-width: 50%;
-  display: inline-block;
+  margin-bottom: 20px;
+  
 `;
 
 export const TraitButton = styled.button`
-  margin: 20px;
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
+  background: #42b983;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s;
 
   &:hover {
-    background-color: #eaeaea;
+    background: #333;
   }
 `;
 
+
+
 export const StyledInput = styled.input`
-flex: 0 0 200px;
-padding: 10px;
-margin: 10px 0;
-border: 1px solid #ccc;
-border-radius: 4px;
-font-size: 16px;
-width: 80%;
+  
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
 `;
 
 export const StyledTextarea = styled.textarea`
+display: block;
   padding: 10px;
-  margin: 10px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 16px;
-  width: 10%;
+  margin-bottom: 10px;
   height: 100px;
 `;
 
 export const StyledButton = styled.button`
-padding: 10px 20px;
-background-color: #4caf50;
-color: white;
-border: none;
-border-radius: 4px;
-cursor: pointer;
-font-size: 16px;
-margin: 10px 0;
+  background: #42b983;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
 
-&:hover {
-  background-color: #45a049;
-}
+  &:hover {
+    background: #333;
+  }
 `;
