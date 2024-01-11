@@ -19,7 +19,7 @@ import HumanoidHeadImage from '../../Chibi-Traits/Head/humanoid1.png';
 import RobotHeadImage from '../../Chibi-Traits/Head/robot.png';
 import GoldHeadImage from '../../Chibi-Traits/Head/goldHead.png';
 import MonkeyHeadImage from '../../Chibi-Traits/Head/monkey.png';
-
+import GreenAlienHeadImage from '../../Chibi-Traits/Head/greenAlien.png';
 import VampireMouthImage from '../../Chibi-Traits/Mouth/vampiremouth.png';
 import ButterMouthImage from '../../Chibi-Traits/Mouth/butter.png';
 
@@ -39,7 +39,7 @@ import PinkGradientImage from '../../Chibi-Traits/Background/pinkGradientbg.png'
 import GreenGradientImage from '../../Chibi-Traits/Background/greenGradientbg.png';
 import BlueGradientImage from '../../Chibi-Traits/Background/blueGradientbg.png';
 import YellowGradientImage from '../../Chibi-Traits/Background/yellowGradientbg.png';
-
+import ERC20ABI from '../../abi/ERC20Abi.json'; // Replace with the actual ABI
 const HatOptions = {
     Kitty: 0,
     SGBBeanie: 1,
@@ -99,7 +99,7 @@ const traitOptions = {
 
   const traitImages = {
     hatOptions: [KittyImage, BeanieImage, ToadImage, SpinnycapImage, MohawkImage, SamuraiImage],
-    headOptions: [OriginalHeadImage, AlienHeadImage, HumanoidHeadImage, RobotHeadImage, GoldHeadImage, MonkeyHeadImage],
+    headOptions: [OriginalHeadImage, GreenAlienHeadImage, HumanoidHeadImage, RobotHeadImage, AlienHeadImage, GoldHeadImage, MonkeyHeadImage],
     mouthOptions: [VampireMouthImage, ButterMouthImage],
     eyeColorOptions: [HypnotizeEyesImage, RainbowSpiralEyesImage, DoubleEyesImage, YellowEyesImage, BlackEyesImage, BlueEyesImage],
     bodyOptions: [RobotBodyImage, OriginalBodyImage, GreenBodyImage, GoldTuxedoImage],
@@ -118,10 +118,8 @@ const traitOptions = {
 
 const Container = styled.div`
   text-align: center;
-  background-color: #f5f5f5;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   max-width: 100%;
   margin: 0 auto;
     margin-top: 40px;
@@ -129,14 +127,17 @@ const Container = styled.div`
 
 const Heading1 = styled.h1`
   font-size: 36px;
-  color: #333;
+  color: #fff;
   margin-bottom: 20px;
+  text-shadow: 0 10px 10px rgba(0, 0, 0, 0.9);
+
 `;
 
 const Paragraph = styled.p`
   font-size: 18px;
-  color: #555;
+  color: #fff;
   margin-bottom: 30px;
+  text-shadow: 0 10px 10px rgba(0, 0, 0, 0.9);
 `;
 
 const TraitCategory = styled.div`
@@ -215,18 +216,47 @@ const TraitStore = () => {
 
 
 
-  const purchaseTrait = async (traitType, selectedTrait) => {
-  try {
-    setLoading(true);
-
-    // Map trait names to enum values
-    const traitEnumValue = traitOptions[traitType][selectedTrait];
-
-    switch (traitType) {
-      case 'hatOptions':
-        await contract.methods.purchaseHatTrait(traitEnumValue).send({ from: account });
-        break;
-      case 'headOptions':
+      const approveTraitPurchase = async (spender, amount) => {
+        try {
+          setLoading(true);
+    
+          // Replace 'yourERC20ContractAddress' with the actual address of your ERC20 contract
+          const erc20ContractAddress = '0xa27bC320252d51EEAA24BCCF6cc003979E485860';
+          
+          // Use the web3 instance to create a contract object for the ERC20 contract
+          const erc20Contract = new web3.eth.Contract(ERC20ABI, erc20ContractAddress);
+    
+          // Call the 'approve' method on the ERC20 contract to approve the spender
+          await erc20Contract.methods.approve(spender, amount).send({ from: account });
+    
+          console.log('Successfully approved trait purchase!');
+        } catch (error) {
+          console.error('Error approving trait purchase:', error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+    
+      const purchaseTrait = async (traitType, selectedTrait) => {
+        try {
+          setLoading(true);
+    
+          // Map trait names to enum values
+          const traitEnumValue = traitOptions[traitType][selectedTrait];
+          const traitPrice = traitPrices[traitType][selectedTrait];
+    
+          // Replace 'ChibifactoryContractAddress' with the actual address of your Chibifactory contract
+          const chibifactoryContractAddress = '0xc53C20b3CAE68A9ECfF933935CAB2F8C854ff46f';
+    
+          // Call the approveTraitPurchase function before proceeding with trait purchase
+          await approveTraitPurchase(chibifactoryContractAddress, traitPrice);
+    
+          // Proceed with the trait purchase after approval
+          switch (traitType) {
+            case 'hatOptions':
+              await contract.methods.purchaseHatTrait(traitEnumValue).send({ from: account });
+              break;
+            case 'headOptions':
         await contract.methods.purchaseHeadTrait(traitEnumValue).send({ from: account });
         break;
       case 'mouthOptions':

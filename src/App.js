@@ -122,7 +122,7 @@ const traitNames = {
 };
 
 
-const contractAddress = '0xa27bC320252d51EEAA24BCCF6cc003979E485860';
+const contractAddress = '0x93b1c5ed494A0bebf484CF247158077b5A7C7C80';
 
 function App() {
   const [web3, setWeb3] = useState(null);
