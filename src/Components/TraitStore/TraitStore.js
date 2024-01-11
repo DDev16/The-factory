@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 import TraitCard from '../TraitStore/TraitCard';
-
+import styled from 'styled-components';
 // Import your Chibifactory contract ABI
 import ChibifactoryABI from '../../abi/abi.json'; // Replace with the actual ABI
 
@@ -40,11 +40,128 @@ import GreenGradientImage from '../../Chibi-Traits/Background/greenGradientbg.pn
 import BlueGradientImage from '../../Chibi-Traits/Background/blueGradientbg.png';
 import YellowGradientImage from '../../Chibi-Traits/Background/yellowGradientbg.png';
 
+const HatOptions = {
+    Kitty: 0,
+    SGBBeanie: 1,
+    Toad: 2,
+    Spinnycap: 3,
+    Mohawk: 4,
+    Samurai: 5,
+  };
+
+    const HeadOptions = {
+    OriginalHead: 0,
+    GreenAlienHead: 1,
+    HumanoidHead: 2,
+    RobotHead: 3,
+    AlienHead: 4,
+    GoldHead: 5,
+    Monkey: 6,
+    };
+
+    const MouthOptions = {
+    VampireMouth: 0,
+    Butter: 1,
+    };
+
+    const EyeColorOptions = {
+    HypnotizeEyes: 0,
+    RainbowSpiralEyes: 1,
+    DoubleEyes: 2,
+    YellowEyes: 3,
+    BlackEyes: 4,
+    BlueEyes: 5,
+    };
+
+    const BodyOptions = {
+    RobotBody: 0,
+    OriginalBody: 1,
+    GreenBody: 2,
+    GoldTuxedo: 3,
+    };
+
+    const BackgroundOptions = {
+    PinkGradient: 0,
+    GreenGradient: 1,
+    BlueGradient: 2,
+    YellowGradient: 3,
+    };
+
+    // Create a traitOptions object
+const traitOptions = {
+    hatOptions: Object.values(HatOptions),
+    headOptions: Object.values(HeadOptions),
+    mouthOptions: Object.values(MouthOptions),
+    eyeColorOptions: Object.values(EyeColorOptions),
+    bodyOptions: Object.values(BodyOptions),
+    backgroundOptions: Object.values(BackgroundOptions),
+  };
+
+  const traitImages = {
+    hatOptions: [KittyImage, BeanieImage, ToadImage, SpinnycapImage, MohawkImage, SamuraiImage],
+    headOptions: [OriginalHeadImage, AlienHeadImage, HumanoidHeadImage, RobotHeadImage, GoldHeadImage, MonkeyHeadImage],
+    mouthOptions: [VampireMouthImage, ButterMouthImage],
+    eyeColorOptions: [HypnotizeEyesImage, RainbowSpiralEyesImage, DoubleEyesImage, YellowEyesImage, BlackEyesImage, BlueEyesImage],
+    bodyOptions: [RobotBodyImage, OriginalBodyImage, GreenBodyImage, GoldTuxedoImage],
+    backgroundOptions: [PinkGradientImage, GreenGradientImage, BlueGradientImage, YellowGradientImage],
+  };
+
+  const traitNames = {
+    hatOptions: Object.keys(HatOptions),
+    headOptions: Object.keys(HeadOptions),
+    mouthOptions: Object.keys(MouthOptions),
+    eyeColorOptions: Object.keys(EyeColorOptions),
+    bodyOptions: Object.keys(BodyOptions),
+    backgroundOptions: Object.keys(BackgroundOptions),
+    };
+
+
+const Container = styled.div`
+  text-align: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  margin: 0 auto;
+    margin-top: 40px;
+`;
+
+const Heading1 = styled.h1`
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+`;
+
+const Paragraph = styled.p`
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+`;
+
+const TraitCategory = styled.div`
+  margin-top: 30px;
+`;
+
+const TraitStoreWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
 const TraitStore = () => {
   const [web3, setWeb3] = useState(null);
   const [contract, setContract] = useState(null);
   const [account, setAccount] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [traitPrices, setTraitPrices] = useState({
+    hatOptions: [],
+    headOptions: [],
+    mouthOptions: [],
+    eyeColorOptions: [],
+    bodyOptions: [],
+    backgroundOptions: [],
+  });
+
 
   useEffect(() => {
     // Connect to Web3
@@ -55,7 +172,7 @@ const TraitStore = () => {
 
         const chibifactoryContract = new web3Instance.eth.Contract(
           ChibifactoryABI,
-          '0xB9dfCb4d6A8ff7be25C082380DE931A1f7F9c01c'
+          '0xc53C20b3CAE68A9ECfF933935CAB2F8C854ff46f'
         );
 
         const accounts = await web3Instance.eth.getAccounts();
@@ -70,93 +187,98 @@ const TraitStore = () => {
     connectToWeb3();
   }, []);
 
-  const traitNames = {
-    hatOptions: ["Kitty", "SGB Beanie", "Toad", "Spinnycap", "Mohawk", "Samurai"],
-    headOptions: ["Original Head", "Green Alien Head", "Humanoid Head", "Robot Head", "Alien Head", "Gold Head", "Monkey"],
-    mouthOptions: ["Vampire Mouth", "Butter"],
-    eyeColorOptions: ["Hypnotize Eyes", "Rainbow Spiral Eyes", "Double Eyes", "Yellow Eyes", "Black Eyes", "Blue Eyes"],
-    bodyOptions: ["Robot Body", "Original Body", "Green Body", "Gold Tuxedo"],
-    backgroundOptions: ["Pink Gradient", "Green Gradient", "Blue Gradient", "Yellow Gradient"]
-  };
+ 
+    useEffect(() => {
+        // Fetch trait prices from the blockchain
+        const fetchTraitPrices = async () => {
+          const hatPrices = await Promise.all(traitOptions.hatOptions.map((option) => contract.methods.getHatPrice(option).call()));
+          const headPrices = await Promise.all(traitOptions.headOptions.map((option) => contract.methods.getHeadPrice(option).call()));
+          const mouthPrices = await Promise.all(traitOptions.mouthOptions.map((option) => contract.methods.getMouthPrice(option).call()));
+          const eyeColorPrices = await Promise.all(traitOptions.eyeColorOptions.map((option) => contract.methods.getEyeColorPrice(option).call()));
+          const bodyPrices = await Promise.all(traitOptions.bodyOptions.map((option) => contract.methods.getBodyPrice(option).call()));
+          const backgroundPrices = await Promise.all(traitOptions.backgroundOptions.map((option) => contract.methods.getBackgroundPrice(option).call()));
+      console.log(hatPrices, headPrices, mouthPrices, eyeColorPrices, bodyPrices, backgroundPrices);
+          setTraitPrices({
+            hatOptions: hatPrices,
+            headOptions: headPrices,
+            mouthOptions: mouthPrices,
+            eyeColorOptions: eyeColorPrices,
+            bodyOptions: bodyPrices,
+            backgroundOptions: backgroundPrices,
+          });
+        };
+      
+        if (contract) {
+          fetchTraitPrices();
+        }
+      }, [contract]);
 
-  const traitImages = {
-    Kitty: KittyImage,
-    "SGB Beanie": BeanieImage,
-    Toad: ToadImage,
-    Spinnycap: SpinnycapImage,
-    Mohawk: MohawkImage,
-    Samurai: SamuraiImage,
 
-    "Original Head": OriginalHeadImage,
-    "Green Alien Head": AlienHeadImage,
-    "Humanoid Head": HumanoidHeadImage,
-    "Robot Head": RobotHeadImage,
-    "Alien Head": AlienHeadImage,
-    "Gold Head": GoldHeadImage,
-    "Monkey": MonkeyHeadImage,
 
-    "Vampire Mouth": VampireMouthImage,
-    "Butter": ButterMouthImage,
+  const purchaseTrait = async (traitType, selectedTrait) => {
+  try {
+    setLoading(true);
 
-    "Hypnotize Eyes": HypnotizeEyesImage,
-    "Rainbow Spiral Eyes": RainbowSpiralEyesImage,
-    "Double Eyes": DoubleEyesImage,
-    "Yellow Eyes": YellowEyesImage,
-    "Black Eyes": BlackEyesImage,
-    "Blue Eyes": BlueEyesImage,
+    // Map trait names to enum values
+    const traitEnumValue = traitOptions[traitType][selectedTrait];
 
-    "Robot Body": RobotBodyImage,
-    "Original Body": OriginalBodyImage,
-    "Green Body": GreenBodyImage,
-    "Gold Tuxedo": GoldTuxedoImage,
-
-    "Pink Gradient": PinkGradientImage,
-    "Green Gradient": GreenGradientImage,
-    "Blue Gradient": BlueGradientImage,
-    "Yellow Gradient": YellowGradientImage,
-  };
-
-  const purchaseTrait = async (selectedTrait) => {
-    try {
-      setLoading(true);
-
-      // Get the enum value for the selected trait
-      const traitEnumValue = traitNames.hatOptions.indexOf(selectedTrait);
-
-      // Replace the following line with the actual function to purchase a trait
-      await contract.methods.purchaseHatTrait(traitEnumValue).send({ from: account });
-
-      console.log(`Successfully purchased ${selectedTrait} trait!`);
-    } catch (error) {
-      console.error('Error purchasing trait:', error.message);
-    } finally {
-      setLoading(false);
+    switch (traitType) {
+      case 'hatOptions':
+        await contract.methods.purchaseHatTrait(traitEnumValue).send({ from: account });
+        break;
+      case 'headOptions':
+        await contract.methods.purchaseHeadTrait(traitEnumValue).send({ from: account });
+        break;
+      case 'mouthOptions':
+        await contract.methods.purchaseMouthTrait(traitEnumValue).send({ from: account });
+        break;
+      case 'eyeColorOptions':
+        await contract.methods.purchaseEyeColorTrait(traitEnumValue).send({ from: account });
+        break;
+      case 'bodyOptions':
+        await contract.methods.purchaseBodyTrait(traitEnumValue).send({ from: account });
+        break;
+      case 'backgroundOptions':
+        await contract.methods.purchaseBackgroundTrait(traitEnumValue).send({ from: account });
+        break;
+      default:
+        console.error('Invalid trait type');
     }
-  };
+
+    console.log(`Successfully purchased ${selectedTrait} trait!`);
+  } catch (error) {
+    console.error('Error purchasing trait:', error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
 
   return (
-    <div>
-      <h2>Trait Store</h2>
-      <p>Connected Account: {account}</p>
+    <Container>
+      <Heading1>Trait Store</Heading1>
+      <Paragraph>Connected Account: {account}</Paragraph>
 
       {/* Display cards for each trait category */}
-      {Object.keys(traitNames).map((traitType) => (
-        <div key={traitType}>
-          <h3>{traitType}</h3>
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-            {traitNames[traitType].map((trait) => (
-              <TraitCard
-                key={trait}
-                traitName={trait}
-                traitImage={traitImages[trait]}
-                purchaseTrait={() => purchaseTrait(trait)}
-                loading={loading}
-              />
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
+       {Object.keys(traitOptions).map((traitType) => (
+    <TraitCategory key={traitType}>
+      <Heading1>{traitType}</Heading1>
+      <TraitStoreWrapper>
+        {traitOptions[traitType].map((trait, index) => (
+          <TraitCard
+            key={traitNames[traitType][index]}
+            traitName={traitNames[traitType][index]}
+            traitImage={traitImages[traitType][index]} // Add this line to pass the image to TraitCard
+            purchaseTrait={() => purchaseTrait(traitType, trait)}
+            loading={loading}
+            traitPrice={traitPrices[traitType][index]}
+          />
+        ))}
+      </TraitStoreWrapper>
+    </TraitCategory>
+  ))}
+    </Container>
   );
 };
 

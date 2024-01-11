@@ -186,3 +186,38 @@ padding: 8px 12px;
   background-color: #f2f2f2;
 }
 `;
+
+
+
+export const Container = styled.div`
+  text-align: center;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  margin: 0 auto;
+    margin-top: 40px;
+`;
+
+export const Heading1 = styled.h1`
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 20px;
+`;
+
+export const Paragraph = styled.p`
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+`;
+
+export const TraitCategory = styled.div`
+  margin-top: 30px;
+`;
+
+export const TraitStoreWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;

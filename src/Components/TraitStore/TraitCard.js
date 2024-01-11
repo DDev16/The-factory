@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import Web3 from 'web3';
 const TraitCardWrapper = styled.div`
   background-color: #f8f8f8;
   border: 1px solid #e0e0e0;
@@ -47,18 +47,32 @@ const PurchaseButton = styled.button`
   }
 `;
 
-const TraitCard = ({ traitName, traitImage, purchaseTrait, loading }) => {
-  return (
-    <TraitCardWrapper>
-      <TraitImage src={traitImage} alt={traitName} />
-      <TraitContent>
-        <TraitName>{traitName} Trait</TraitName>
-        <PurchaseButton onClick={purchaseTrait} disabled={loading}>
-          {loading ? 'Purchasing...' : `Purchase ${traitName} Trait`}
-        </PurchaseButton>
-      </TraitContent>
-    </TraitCardWrapper>
-  );
-};
+const TraitPrice = styled.p`
+  font-size: 14px;
+  color: #666;
+`;
 
-export default TraitCard;
+
+
+
+
+const TraitCard = ({ traitName, traitImage, traitPrice, purchaseTrait, loading }) => {
+    // Check if traitPrice is defined before attempting to convert
+    const formattedPrice = traitPrice ? Web3.utils.fromWei(traitPrice.toString(), 'ether') : 'N/A';
+  
+    return (
+      <TraitCardWrapper>
+        <TraitImage src={traitImage} alt={traitName} />
+        <TraitContent>
+          <TraitName>{traitName} Trait</TraitName>
+          <TraitPrice>{formattedPrice} Psycho Gem Tokens</TraitPrice> {/* Updated this line */}
+          <PurchaseButton onClick={purchaseTrait} disabled={loading}>
+            {loading ? 'Purchasing...' : `Purchase ${traitName} Trait`}
+          </PurchaseButton>
+        </TraitContent>
+      </TraitCardWrapper>
+    );
+  };
+  
+  export default TraitCard;
+
