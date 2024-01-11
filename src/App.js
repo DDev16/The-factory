@@ -9,7 +9,7 @@ import placeholderImage from './Images/factory.png';
 import Info from './Components/Info.js';
 import Parallax from './Components/parallax/newparallaxhero.js';
 import Cloud from './Components/ReversedCloud/Cloud.js';
-
+import TraitStore from './Components/TraitStore/TraitStore.js';
 const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdGOTA4QjNBRDJGMDFGNjE2MjU1MTA0ODIwNjFmNTY5Mzc2QTg3MjYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3OTI5MDE5ODQyMCwibmFtZSI6Ik5FV0VTVCJ9.FGtIrIhKhgSx-10iVlI4sM_78o7jSghZsG5BpqZ4xfA';
 
 const createMetadataJSON = (imageCID, chibiTraits, nftName, nftDescription) => {
@@ -122,7 +122,7 @@ const traitNames = {
 };
 
 
-const contractAddress = '0xD4A05F9b4A28FA29d70601A6Ac9FF3f2A7724203';
+const contractAddress = '0xa27bC320252d51EEAA24BCCF6cc003979E485860';
 
 function App() {
   const [web3, setWeb3] = useState(null);
@@ -374,7 +374,7 @@ const updateTrait = (traitType, value) => {
         <ChibiDisplay traits={chibiTraits} />
         
        </MainLayout>
-    
+    <TraitStore/>
     </AppContainer>
   );
 }

@@ -1,7 +1,6 @@
-import contractABI from './abi/abi.json';
 import hypnotizeEyes from './Chibi-Traits/Eyes/hypnotize eyes.png';
 import originalHead from './Chibi-Traits/Head/orginal head.png';
-import originalBody from './Chibi-Traits/Body/orginal body.png';
+import originalBody from './Chibi-Traits/Body/orginalbody.png';
 import robotBody from './Chibi-Traits/Body/robotBody.png';
 import pinkGradientbg from './Chibi-Traits/Background/pinkGradientbg.png';
 import greenGradientbg from './Chibi-Traits/Background/greenGradientbg.png';
