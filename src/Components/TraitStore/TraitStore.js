@@ -6,40 +6,123 @@ import styled from 'styled-components';
 import ChibifactoryABI from '../../abi/abi.json'; // Replace with the actual ABI
 
 // Import placeholder images for each trait
-import KittyImage from '../../Chibi-Traits/Hat/kitty.png';
-import BeanieImage from '../../Chibi-Traits/Hat/SGBbeanie.png';
+//HATS
+import KittyImage from '../../Traits/Hat/kitty.jpg';
+import BeanieImage from '../../Traits/Hat/NFT SONGBIRD BEANIE.jpg';
 import ToadImage from '../../Chibi-Traits/Hat/toad.png';
-import SpinnycapImage from '../../Chibi-Traits/Hat/spinnycap.png';
-import MohawkImage from '../../Chibi-Traits/Hat/mohawk.png';
-import SamuraiImage from '../../Chibi-Traits/Hat/samaraui.png';
+import SpinnycapImage from '../../Traits/Hat/spinnycap.jpg';
+import MohawkImage from '../../Traits/Hat/mohawk.jpg';
+import SamuraiImage from '../../Traits/Hat/samaraui.jpg';
+import Viking from '../../Traits/Hat/viking.jpg';
+import UnicornHorn from '../../Traits/Hat/Unicorn Horn.jpg';
+import SongBird from '../../Traits/Hat/song bird.jpg';
+import Sombero from '../../Traits/Hat/sombero.jpg';
+import SGBTopHat from '../../Traits/Hat/sgb top hat.jpg';
+import PrincessCrown from '../../Traits/Hat/Princess Crown.jpg';
+import PoliceHat from '../../Traits/Hat/police hat.jpg';
+import PirateHat from '../../Traits/Hat/Pirate hat.jpg';
+import NFTCap from '../../Traits/Hat/NFT cap.jpg';
+import KingsCrown from '../../Traits/Hat/Kings Crown.jpg';
+import HippyBucketHat from '../../Traits/Hat/Hippy bucket hat.jpg';
+import Headphones from '../../Traits/Hat/headphones.jpg';
+import Headdress from '../../Traits/Hat/Headdress.jpg';
+import Halo from '../../Traits/Hat/halo.png';
+import GreySGBBeanie from '../../Traits/Hat/grey sgb beanie.jpg';
+import GoldenPoo  from '../../Traits/Hat/golden poo.jpg';
+import FirefighterHelmet from '../../Traits/Hat/firefighter helmet.jpg';
+import DevilHorns from '../../Traits/Hat/Devil Horns.jpg';
+import ConstructionHat from '../../Traits/Hat/Construction Hat.jpg';
+import Clown from '../../Traits/Hat/clown hat.jpg';
+import BlackHair from '../../Traits/Hat/black hair.jpg';
+import Astronuaght from '../../Traits/Hat/Astronuaght helmet.jpg';
+import Antennas from '../../Traits/Hat/Alien antennes.jpg'
 
-import OriginalHeadImage from '../../Chibi-Traits/Head/orginal head.png';
-import AlienHeadImage from '../../Chibi-Traits/Head/alien.png';
-import HumanoidHeadImage from '../../Chibi-Traits/Head/humanoid1.png';
-import RobotHeadImage from '../../Chibi-Traits/Head/robot.png';
-import GoldHeadImage from '../../Chibi-Traits/Head/goldHead.png';
-import MonkeyHeadImage from '../../Chibi-Traits/Head/monkey.png';
-import GreenAlienHeadImage from '../../Chibi-Traits/Head/greenAlien.png';
-import VampireMouthImage from '../../Chibi-Traits/Mouth/vampiremouth.png';
-import ButterMouthImage from '../../Chibi-Traits/Mouth/butter.png';
+//Heads
+import OriginalHeadImage from '../../Traits/Head/original.jpg';
+import AlienHeadImage from '../../Traits/Head/alien.jpg';
+import BlueSkin from '../../Traits/Head/blueskin.jpg';
+import GreenSkin from '../../Traits/Head/green skin.jpg';
+import RedSkin from '../../Traits/Head/red skin.jpg';
+import HumanoidHeadImage from '../../Traits/Head/humanoid.jpg';
+import RobotHeadImage from '../../Traits/Head/robot.jpg';
+import GoldHeadImage from '../../Traits/Head/goldHead.jpg';
+import MonkeyHeadImage from '../../Traits/Head/monkey.jpg';
+import GreenAlienHeadImage from '../../Traits/Head/Green Alien.jpg';
+import SkullHeadImage from '../../Traits/Head/Skull.jpg';
+import Zombies from '../../Traits/Head/ZombieHead.jpg';
 
-import HypnotizeEyesImage from '../../Chibi-Traits/Eyes/hypnotize eyes.png';
-import RainbowSpiralEyesImage from '../../Chibi-Traits/Eyes/rainbowspiraleyes.png';
-import DoubleEyesImage from '../../Chibi-Traits/Eyes/doubleeyes.png';
-import YellowEyesImage from '../../Chibi-Traits/Eyes/yellowEyes.png';
-import BlackEyesImage from '../../Chibi-Traits/Eyes/blackEyes.png';
-import BlueEyesImage from '../../Chibi-Traits/Eyes/blueyes.png';
+//Mouths
 
-import RobotBodyImage from '../../Chibi-Traits/Body/robotBody.png';
-import OriginalBodyImage from '../../Chibi-Traits/Body/orginalbody.png';
-import GreenBodyImage from '../../Chibi-Traits/Body/greenbody.png';
-import GoldTuxedoImage from '../../Chibi-Traits/Body/goldTuxedo.png';
 
+
+import VampireMouthImage from '../../Traits/Mouth/Vampire mouth.jpg';
+import ButterMouthImage from '../../Traits/Mouth/butter.jpg';
+import TongueOut from '../../Traits/Mouth/tongue out.jpg';
+import TobaccoPipe from '../../Traits/Mouth/tobacco pipe.jpg';
+import SmileyTongue from '../../Traits/Mouth/smiley tongue.jpg';
+import Smile from '../../Traits/Mouth/smile.png';
+import PearlyWhites from '../../Traits/Mouth/pearly whites.png';
+import BigSmile from '../../Traits/Mouth/big smile.jpg';
+
+//Eyes
+
+import HypnotizeEyesImage from '../../Traits/Eyes/hypnotize eyes.jpg';
+import RainbowSpiralEyesImage from '../../Traits/Eyes/rainbowspiraleyes.jpg';
+import DoubleEyesImage from '../../Traits/Eyes/double eyes.jpg';
+import YellowEyesImage from '../../Traits/Eyes/yellowEyes.jpg';
+import BlackEyesImage from '../../Traits/Eyes/blackEyes.jpg';
+import BlueEyesImage from '../../Traits/Eyes/blue spirals.jpg';
+import GoldenEyes from '../../Traits/Eyes/goldeyes.jpg';
+import GreenSpirals from '../../Traits/Eyes/green spirals.jpg';
+import WhiteEyes from '../../Traits/Eyes/White Eyes.jpg';
+import YellowSpiral   from '../../Traits/Eyes/yellow spirals.jpg';
+//Body
+
+import RobotBodyImage from '../../Traits/Body/robotBody.jpg';
+import OriginalBodyImage from '../../Traits/Body/Birthday suit.jpg';
+import GreenBodyImage from '../../Traits/Body/greenbody.jpg';
+import GoldTuxedoImage from '../../Traits/Body/gold suit.jpg';
+import Old from '../../Traits/Body/1800s.jpg';
+import AlienHoodie from '../../Traits/Body/Alien hoodie.jpg';
+import BlueBody from '../../Traits/Body/Blue body.jpg';
+import ChefsCoat from '../../Traits/Body/chefs coat.jpg';
+import ClownBody from '../../Traits/Body/Clown.jpg';
+import Contruction from '../../Traits/Body/construction.jpg';
+import Firefighter from '../../Traits/Body/Fire fighter.jpg';
+import GreyBody from '../../Traits/Body/Grey body.jpg';
+import MonkeyTorso from '../../Traits/Body/monkey torso.jpg';
+import Native from '../../Traits/Body/Native.jpg';
+import PeaceSignArmyGuy from '../../Traits/Body/Peace sign army guy.jpg';
+import Princess from '../../Traits/Body/princess dress.jpg';
+import PrisonJumpsuit from '../../Traits/Body/prison jumpsuit.jpg';
+import PsychoChibi from '../../Traits/Body/Psycho Chibi.jpg';
+import Raincoat from '../../Traits/Body/RainCoat.jpg';
+import RedBody from '../../Traits/Body/red body.jpg';
+import Robe from '../../Traits/Body/Robe.jpg';
+import SamuraiBody from '../../Traits/Body/Samaraui.jpg';
+import SGBHoodie from '../../Traits/Body/SGB hoodie.jpg';
+import Skeleton from '../../Traits/Body/Skeleton.jpg';
+import SpaceSuit from '../../Traits/Body/Space suit.jpg';
+import UnicornOnsie from '../../Traits/Body/unicorn onsie.jpg';
+import WhiteTuxedo from '../../Traits/Body/white tux.jpg';
+import Wounded from '../../Traits/Body/wounded.jpg';
+
+//Backgrounds
 import PinkGradientImage from '../../Chibi-Traits/Background/pinkGradientbg.png';
 import GreenGradientImage from '../../Chibi-Traits/Background/greenGradientbg.png';
 import BlueGradientImage from '../../Chibi-Traits/Background/blueGradientbg.png';
 import YellowGradientImage from '../../Chibi-Traits/Background/yellowGradientbg.png';
+import Holo from '../../Chibi-Traits/Background/holo.png';  
+import Illusion from '../../Chibi-Traits/Background/illusions.png';
+import Spiral from '../../Chibi-Traits/Background/Spiral effect.png';
+import DottedIllusion from '../../Chibi-Traits/Background/dotted illusion.png';
+import WavesOfIllusion from '../../Chibi-Traits/Background/waves of illusion.png';
+import Orange from '../../Traits/Background/orange.jpg';
+import SuperFoily from '../../Traits/Background/Super foily.jpg';
+
+
 import ERC20ABI from '../../abi/ERC20Abi.json'; // Replace with the actual ABI
+
 const HatOptions = {
     Kitty: 0,
     SGBBeanie: 1,
@@ -47,6 +130,30 @@ const HatOptions = {
     Spinnycap: 3,
     Mohawk: 4,
     Samurai: 5,
+    Viking: 6,
+    UnicornHorn: 7,
+    SongBird: 8,
+    Sombero: 9,
+    SGBTopHat: 10,
+    PrincessCrown: 11,
+    PoliceHat: 12,
+    PirateHat: 13,
+    NFTCap: 14,
+    KingsCrown: 15,
+    HippyBucketHat: 16,
+    Headphones: 17,
+    Headdress: 18,
+    Halo: 19,
+    GreySGBBeanie: 20,
+    GoldenPoo: 21,
+    FirefighterHelmet: 22,
+    DevilHorns: 23,
+    ConstructionHat: 24,
+    Clown: 25,
+    BlackHair: 26,
+    Astronuaght: 27,
+    Antennas: 28,
+
   };
 
     const HeadOptions = {
@@ -57,11 +164,24 @@ const HatOptions = {
     AlienHead: 4,
     GoldHead: 5,
     Monkey: 6,
+    Skull: 7,
+    Zombies: 8,
+    BlueSkin: 9,
+    GreenSkin: 10,
+    RedSkin: 11,
+    
     };
 
     const MouthOptions = {
     VampireMouth: 0,
     Butter: 1,
+    TongueOut: 2,
+    TobaccoPipe: 3,
+    SmileyTongue: 4,
+    Smile: 5,
+    PearlyWhites: 6,
+    BigSmile: 7,
+      
     };
 
     const EyeColorOptions = {
@@ -71,6 +191,11 @@ const HatOptions = {
     YellowEyes: 3,
     BlackEyes: 4,
     BlueEyes: 5,
+    GoldenEyes: 6,
+    GreenSpirals: 7,
+    WhiteEyes: 8,
+    YellowSpiral: 9,
+
     };
 
     const BodyOptions = {
@@ -78,6 +203,31 @@ const HatOptions = {
     OriginalBody: 1,
     GreenBody: 2,
     GoldTuxedo: 3,
+    Old: 4,
+    AlienHoodie: 5,
+    BlueBody: 6,
+    ChefsCoat: 7,
+    ClownBody: 8,
+    Contruction: 9,
+    Firefighter: 10,
+    GreyBody: 11,
+    MonkeyTorso: 12,
+    Native: 13,
+    PeaceSignArmyGuy: 14, 
+    Princess: 15,
+    PrisonJumpsuit: 16,
+    PsychoChibi: 17,
+    Raincoat: 18,
+    RedBody: 19,
+    Robe: 20,
+    SamuraiBody: 21,
+    SGBHoodie: 22,
+    Skeleton: 23,
+    SpaceSuit: 24,
+    UnicornOnsie: 25,
+    WhiteTuxedo: 26,
+    Wounded: 27,
+      
     };
 
     const BackgroundOptions = {
@@ -85,6 +235,16 @@ const HatOptions = {
     GreenGradient: 1,
     BlueGradient: 2,
     YellowGradient: 3,
+    Holo: 4,
+    Illusion: 5,
+    Spiral: 6,
+    DottedIllusion: 7,
+    WavesOfIllusion: 8,
+    Orange: 9,
+    SuperFoily: 10,
+
+
+
     };
 
     // Create a traitOptions object
@@ -98,12 +258,12 @@ const traitOptions = {
   };
 
   const traitImages = {
-    hatOptions: [KittyImage, BeanieImage, ToadImage, SpinnycapImage, MohawkImage, SamuraiImage],
-    headOptions: [OriginalHeadImage, GreenAlienHeadImage, HumanoidHeadImage, RobotHeadImage, AlienHeadImage, GoldHeadImage, MonkeyHeadImage],
-    mouthOptions: [VampireMouthImage, ButterMouthImage],
-    eyeColorOptions: [HypnotizeEyesImage, RainbowSpiralEyesImage, DoubleEyesImage, YellowEyesImage, BlackEyesImage, BlueEyesImage],
-    bodyOptions: [RobotBodyImage, OriginalBodyImage, GreenBodyImage, GoldTuxedoImage],
-    backgroundOptions: [PinkGradientImage, GreenGradientImage, BlueGradientImage, YellowGradientImage],
+    hatOptions: [KittyImage, BeanieImage, ToadImage, SpinnycapImage, MohawkImage, SamuraiImage, Viking, UnicornHorn, SongBird, Sombero, SGBTopHat, PrincessCrown, PoliceHat, PirateHat, NFTCap, KingsCrown, HippyBucketHat, Headphones, Headdress, Halo, GreySGBBeanie, GoldenPoo, FirefighterHelmet, DevilHorns, ConstructionHat, Clown, BlackHair, Astronuaght, Antennas],
+    headOptions: [OriginalHeadImage, GreenAlienHeadImage, HumanoidHeadImage, RobotHeadImage, AlienHeadImage, GoldHeadImage, MonkeyHeadImage, SkullHeadImage, Zombies, BlueSkin, GreenSkin, RedSkin],
+    mouthOptions: [VampireMouthImage, ButterMouthImage, TongueOut, TobaccoPipe, SmileyTongue, Smile, PearlyWhites, BigSmile],
+    eyeColorOptions: [HypnotizeEyesImage, RainbowSpiralEyesImage, DoubleEyesImage, YellowEyesImage, BlackEyesImage, BlueEyesImage, GoldenEyes, GreenSpirals, WhiteEyes, YellowSpiral],
+    bodyOptions: [RobotBodyImage, OriginalBodyImage, GreenBodyImage, GoldTuxedoImage, Old, AlienHoodie, BlueBody, ChefsCoat, ClownBody, Contruction, Firefighter, GreyBody, MonkeyTorso, Native, PeaceSignArmyGuy, Princess, PrisonJumpsuit, PsychoChibi, Raincoat, RedBody, Robe, SamuraiBody, SGBHoodie, Skeleton, SpaceSuit, UnicornOnsie, WhiteTuxedo, Wounded],
+    backgroundOptions: [PinkGradientImage, GreenGradientImage, BlueGradientImage, YellowGradientImage, Holo, Illusion, Spiral, DottedIllusion, WavesOfIllusion, Orange, SuperFoily],
   };
 
   const traitNames = {
