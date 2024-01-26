@@ -18,6 +18,57 @@
 	{
 		"inputs": [
 			{
+				"internalType": "enum SimpleChibifactory.TraitType",
+				"name": "traitType",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "option",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "supply",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"name": "addTrait",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "address",
 				"name": "implementation",
 				"type": "address"
@@ -29,11 +80,6 @@
 	{
 		"inputs": [],
 		"name": "ERC1967NonPayable",
-		"type": "error"
-	},
-	{
-		"inputs": [],
-		"name": "ERC721EnumerableForbiddenBatchMint",
 		"type": "error"
 	},
 	{
@@ -140,40 +186,58 @@
 		"type": "error"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "index",
-				"type": "uint256"
-			}
-		],
-		"name": "ERC721OutOfBoundsIndex",
-		"type": "error"
-	},
-	{
-		"inputs": [],
-		"name": "EnforcedPause",
-		"type": "error"
-	},
-	{
-		"inputs": [],
-		"name": "ExpectedPause",
-		"type": "error"
-	},
-	{
 		"inputs": [],
 		"name": "FailedInnerCall",
 		"type": "error"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_tokenAddress",
+				"type": "address"
+			}
+		],
+		"name": "initialize",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "InvalidInitialization",
 		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "enum SimpleChibifactory.TraitType",
+						"name": "traitType",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "option",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct SimpleChibifactory.Trait[]",
+				"name": "_traits",
+				"type": "tuple[]"
+			}
+		],
+		"name": "mintNFT",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -201,6 +265,85 @@
 		],
 		"name": "OwnableUnauthorizedAccount",
 		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "enum SimpleChibifactory.TraitType",
+				"name": "traitType",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint256",
+				"name": "option",
+				"type": "uint256"
+			}
+		],
+		"name": "purchaseTrait",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "safeTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "operator",
+				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "approved",
+				"type": "bool"
+			}
+		],
+		"name": "setApprovalForAll",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_tokenAddress",
+				"type": "address"
+			}
+		],
+		"name": "setERC20TokenAddress",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -317,46 +460,28 @@
 		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "hat",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "head",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "mouth",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "eyeColor",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "body",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "background",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
+				"indexed": true,
 				"internalType": "uint256",
 				"name": "tokenId",
 				"type": "uint256"
+			},
+			{
+				"components": [
+					{
+						"internalType": "enum SimpleChibifactory.TraitType",
+						"name": "traitType",
+						"type": "uint8"
+					},
+					{
+						"internalType": "uint256",
+						"name": "option",
+						"type": "uint256"
+					}
+				],
+				"indexed": false,
+				"internalType": "struct SimpleChibifactory.Trait[]",
+				"name": "traits",
+				"type": "tuple[]"
 			}
 		],
 		"name": "MintNFT",
@@ -382,60 +507,45 @@
 		"type": "event"
 	},
 	{
-		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
 				"internalType": "address",
-				"name": "account",
+				"name": "from",
 				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
 			}
 		],
-		"name": "Paused",
-		"type": "event"
+		"name": "safeTransferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
-		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "hatOption",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "headOption",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "mouthOption",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "eyeColorOption",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "bodyOption",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "backgroundOption",
-				"type": "uint8"
+				"internalType": "string",
+				"name": "newBaseURI",
+				"type": "string"
 			}
 		],
-		"name": "TraitPriceUpdated",
-		"type": "event"
+		"name": "setBaseURI",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -448,91 +558,18 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "hatOption",
+				"internalType": "enum SimpleChibifactory.TraitType",
+				"name": "traitType",
 				"type": "uint8"
 			},
 			{
 				"indexed": false,
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "headOption",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "mouthOption",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "eyeColorOption",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "bodyOption",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "backgroundOption",
-				"type": "uint8"
+				"internalType": "uint256",
+				"name": "option",
+				"type": "uint256"
 			}
 		],
 		"name": "TraitPurchased",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "newHat",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "newHead",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "newMouth",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "newEyeColor",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "newBody",
-				"type": "uint8"
-			},
-			{
-				"indexed": false,
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "newBackground",
-				"type": "uint8"
-			}
-		],
-		"name": "TraitSwapped",
 		"type": "event"
 	},
 	{
@@ -561,17 +598,58 @@
 		"type": "event"
 	},
 	{
-		"anonymous": false,
 		"inputs": [
 			{
-				"indexed": false,
 				"internalType": "address",
-				"name": "account",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
 				"type": "address"
 			}
 		],
-		"name": "Unpaused",
-		"type": "event"
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "tokenId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "newTokenURI",
+				"type": "string"
+			}
+		],
+		"name": "updateTokenURI",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -587,53 +665,21 @@
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "UPGRADE_INTERFACE_VERSION",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "to",
+				"name": "newImplementation",
 				"type": "address"
 			},
 			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
 			}
 		],
-		"name": "approve",
+		"name": "upgradeToAndCall",
 		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "backgroundPrices",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
@@ -657,19 +703,6 @@
 	},
 	{
 		"inputs": [],
-		"name": "baseExtension",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "baseURI",
 		"outputs": [
 			{
@@ -682,38 +715,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "bodyPrices",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "burn",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "erc20Token",
 		"outputs": [
@@ -721,25 +722,6 @@
 				"internalType": "contract IERC20",
 				"name": "",
 				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "eyeColorPrices",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -762,222 +744,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "backgroundOption",
-				"type": "uint8"
-			}
-		],
-		"name": "getBackgroundPrice",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "bodyOption",
-				"type": "uint8"
-			}
-		],
-		"name": "getBodyPrice",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "eyeColorOption",
-				"type": "uint8"
-			}
-		],
-		"name": "getEyeColorPrice",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "hatOption",
-				"type": "uint8"
-			}
-		],
-		"name": "getHatPrice",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "headOption",
-				"type": "uint8"
-			}
-		],
-		"name": "getHeadPrice",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "mouthOption",
-				"type": "uint8"
-			}
-		],
-		"name": "getMouthPrice",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "getTokenTraits",
-		"outputs": [
-			{
-				"components": [
-					{
-						"internalType": "enum Chibifactory1.HatOptions",
-						"name": "hat",
-						"type": "uint8"
-					},
-					{
-						"internalType": "enum Chibifactory1.HeadOptions",
-						"name": "head",
-						"type": "uint8"
-					},
-					{
-						"internalType": "enum Chibifactory1.MouthOptions",
-						"name": "mouth",
-						"type": "uint8"
-					},
-					{
-						"internalType": "enum Chibifactory1.EyeColorOptions",
-						"name": "eyeColor",
-						"type": "uint8"
-					},
-					{
-						"internalType": "enum Chibifactory1.BodyOptions",
-						"name": "body",
-						"type": "uint8"
-					},
-					{
-						"internalType": "enum Chibifactory1.BackgroundOptions",
-						"name": "background",
-						"type": "uint8"
-					}
-				],
-				"internalType": "struct Chibifactory1.Traits",
-				"name": "",
-				"type": "tuple"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "hatPrices",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "headPrices",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_tokenAddress",
-				"type": "address"
-			}
-		],
-		"name": "initialize",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1007,69 +773,6 @@
 	{
 		"inputs": [],
 		"name": "maxSupply",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "hat",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "head",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "mouth",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "eyeColor",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "body",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "background",
-				"type": "uint8"
-			}
-		],
-		"name": "mergeTraitsAndMintNFT",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "mouthPrices",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -1126,170 +829,6 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "ownsBackgroundTrait",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "ownsBodyTrait",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "ownsEyeColorTrait",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "ownsHatTrait",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "ownsHeadTrait",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "",
-				"type": "uint8"
-			}
-		],
-		"name": "ownsMouthTrait",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "pause",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "paused",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "proxiableUUID",
 		"outputs": [
@@ -1300,186 +839,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "backgroundOption",
-				"type": "uint8"
-			}
-		],
-		"name": "purchaseBackgroundTrait",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "bodyOption",
-				"type": "uint8"
-			}
-		],
-		"name": "purchaseBodyTrait",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "eyeColorOption",
-				"type": "uint8"
-			}
-		],
-		"name": "purchaseEyeColorTrait",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "hatOption",
-				"type": "uint8"
-			}
-		],
-		"name": "purchaseHatTrait",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "headOption",
-				"type": "uint8"
-			}
-		],
-		"name": "purchaseHeadTrait",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "mouthOption",
-				"type": "uint8"
-			}
-		],
-		"name": "purchaseMouthTrait",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			}
-		],
-		"name": "safeTransferFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bytes",
-				"name": "data",
-				"type": "bytes"
-			}
-		],
-		"name": "safeTransferFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "operator",
-				"type": "address"
-			},
-			{
-				"internalType": "bool",
-				"name": "approved",
-				"type": "bool"
-			}
-		],
-		"name": "setApprovalForAll",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "newBaseURI",
-				"type": "string"
-			}
-		],
-		"name": "setBaseURI",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_tokenAddress",
-				"type": "address"
-			}
-		],
-		"name": "setERC20TokenAddress",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1518,47 +877,9 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "index",
-				"type": "uint256"
-			}
-		],
-		"name": "tokenByIndex",
-		"outputs": [
-			{
-				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "owner",
-				"type": "address"
 			},
-			{
-				"internalType": "uint256",
-				"name": "index",
-				"type": "uint256"
-			}
-		],
-		"name": "tokenOfOwnerByIndex",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
@@ -1568,34 +889,14 @@
 		"name": "tokenTraits",
 		"outputs": [
 			{
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "hat",
+				"internalType": "enum SimpleChibifactory.TraitType",
+				"name": "traitType",
 				"type": "uint8"
 			},
 			{
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "head",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "mouth",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "eyeColor",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "body",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "background",
-				"type": "uint8"
+				"internalType": "uint256",
+				"name": "option",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -1621,13 +922,47 @@
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "totalSupply",
-		"outputs": [
+		"inputs": [
+			{
+				"internalType": "enum SimpleChibifactory.TraitType",
+				"name": "",
+				"type": "uint8"
+			},
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"name": "traits",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "supply",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "UPGRADE_INTERFACE_VERSION",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -1636,231 +971,20 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
 				"internalType": "uint256",
 				"name": "tokenId",
 				"type": "uint256"
 			}
 		],
-		"name": "transferFrom",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+		"name": "viewTokenTraits",
+		"outputs": [
 			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
+				"internalType": "string[]",
+				"name": "",
+				"type": "string[]"
 			}
 		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "unpause",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "backgroundOption",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "newPrice",
-				"type": "uint256"
-			}
-		],
-		"name": "updateBackgroundPrice",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "bodyOption",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "newPrice",
-				"type": "uint256"
-			}
-		],
-		"name": "updateBodyPrice",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "eyeColorOption",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "newPrice",
-				"type": "uint256"
-			}
-		],
-		"name": "updateEyeColorPrice",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "hatOption",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "newPrice",
-				"type": "uint256"
-			}
-		],
-		"name": "updateHatPrice",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "headOption",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "newPrice",
-				"type": "uint256"
-			}
-		],
-		"name": "updateHeadPrice",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "mouthOption",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint256",
-				"name": "newPrice",
-				"type": "uint256"
-			}
-		],
-		"name": "updateMouthPrice",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "newTokenURI",
-				"type": "string"
-			}
-		],
-		"name": "updateTokenURI",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "tokenId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "enum Chibifactory1.HatOptions",
-				"name": "newHat",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.HeadOptions",
-				"name": "newHead",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.MouthOptions",
-				"name": "newMouth",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.EyeColorOptions",
-				"name": "newEyeColor",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.BodyOptions",
-				"name": "newBody",
-				"type": "uint8"
-			},
-			{
-				"internalType": "enum Chibifactory1.BackgroundOptions",
-				"name": "newBackground",
-				"type": "uint8"
-			}
-		],
-		"name": "updateTraits",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newImplementation",
-				"type": "address"
-			},
-			{
-				"internalType": "bytes",
-				"name": "data",
-				"type": "bytes"
-			}
-		],
-		"name": "upgradeToAndCall",
-		"outputs": [],
-		"stateMutability": "payable",
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]
