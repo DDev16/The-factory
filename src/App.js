@@ -10,8 +10,10 @@ import Info from './Components/Info.js';
 import Parallax from './Components/parallax/newparallaxhero.js';
 import Cloud from './Components/ReversedCloud/Cloud.js';
 import TraitStore from './Components/TraitStore/TraitStore.js';
-const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdGOTA4QjNBRDJGMDFGNjE2MjU1MTA0ODIwNjFmNTY5Mzc2QTg3MjYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3OTI5MDE5ODQyMCwibmFtZSI6Ik5FV0VTVCJ9.FGtIrIhKhgSx-10iVlI4sM_78o7jSghZsG5BpqZ4xfA';
+import Swal from 'sweetalert2';
 
+const apiKey = process.env.REACT_APP_API_KEY;
+ 
 const createMetadataJSON = (imageCID, chibiTraits, nftName, nftDescription) => {
 
   
@@ -22,7 +24,7 @@ const createMetadataJSON = (imageCID, chibiTraits, nftName, nftDescription) => {
     headOptions: ["Original Head", "Green Alien Head", "Humanoid Head", "Robot Head", "Alien Head", "Gold Head", "Monkey", "Blue Head", "Green Head", "Red Head", "Skull", "Zombie Head"],
     mouthOptions: ["Vampire Mouth", "Butter", "Big Smile", "Happy", "Pearly Teeth", "Smile", "Smiley Tongue", "Tobacco Pipe", "Tongue Out"],
     eyeColorOptions: ["Hypnotize Eyes", "Rainbow Spiral Eyes", "Double Eyes", "Yellow Eyes", "Black Eyes", "Blue Spirals", "Gold Eyes", "Green Spirals", "White Eyes", "Yellow Spirals"],
-    bodyOptions: ["Robot Body", "Original Body", "Green Body", "Gold Tuxedo", "Old 1800s Outfit", "Alien Hoodie", "Blue Body", "Chefs Coat", "Clown Outfit", "Construction Outfit", "Fire Fighter", "Green Body", "Grey Body", "Monkey Torso", "Native Outfit", "Peace Sign Army Guy", "Police Uniform", "Princess Dress", "Prison Jumpsuit", "Psycho Chibi", "Rain Coat", "Red Body", "Robe", "Samaraui Outfit", "SGB Hoodie", "Skeleton", "Space Suit", "Unicorn Onsie", "White Tuxedo"],
+    bodyOptions: ["Robot Body", "Original Body", "Green Body", "Gold Tuxedo", "Old 1800s Outfit", "Alien Hoodie", "Blue Body", "Chefs Coat", "Clown Outfit", "Construction Outfit", "Fire Fighter", "Green Body", "Grey Body", "Monkey Torso", "Native Outfit", "Peace Sign Army Guy", "Police Uniform", "Princess Dress", "Prison Jumpsuit", "Psycho Chibi", "Rain Coat", "Red Body", "Robe", "Samaraui Outfit", "SGB Hoodie", "Skeleton", "Space Suit", "Unicorn Onsie", "White Tuxedo", "Pickles Warfare"],
     backOptions: ["AK", "Angel Wings", "Rocket Launcher", "Songbird Slugger", "Unicorn AK"],
     backgroundOptions: ["Pink Gradient", "Green Gradient", "Blue Gradient", "Yellow Gradient", "Dotted Swirls", "Foil", "Illusion", "Illusion Spinning", "Orange Gradient", "Purple Waves"]
   };
@@ -115,24 +117,28 @@ const uploadToNFTStorage = async (compositeImage) => {
   });
 
   const uploadResult = await uploadResponse.json();
-  return uploadResult.value.cid; // This is the CID of the uploaded image
+console.log('Upload Result:', uploadResult);
+return uploadResult.value.cid;
+
 };
 
 
 
+// Define a mapping from indices to descriptive names
 const traitNames = {
   hatOptions: ["Kitty", "SGB Beanie", "Toad", "Spinnycap", "Mohawk", "Samaraui", "Alien Antennaas", "Astronuaght Helmet", "Black Hair", "Clown Hat", "Construction Hat", "Devil Horns", "Firefighter Helmet", "Golden Poo", "Grey SGB Beanie", "Halo", "Headderess", "Headphones", "Hippy Bucket Hat", "Kings Crown", "NFT Cap", "NFT Songbird Beanie", "Pirate Hat", "Police Hat", "Princess Crown", "SGB Top Hat", "Sombero", "Song Bird", "Unicorn Horn", "Viking Helmet"],
   accessoriesOptions: ["Bandana", "Eye Patch", "Flare Tattoo", "Lolli Pop", "Psycho Flower", "Psycho Gem Staff", "Psycho Gem"],
   headOptions: ["Original Head", "Green Alien Head", "Humanoid Head", "Robot Head", "Alien Head", "Gold Head", "Monkey", "Blue Head", "Green Head", "Red Head", "Skull", "Zombie Head"],
   mouthOptions: ["Vampire Mouth", "Butter", "Big Smile", "Happy", "Pearly Teeth", "Smile", "Smiley Tongue", "Tobacco Pipe", "Tongue Out"],
   eyeColorOptions: ["Hypnotize Eyes", "Rainbow Spiral Eyes", "Double Eyes", "Yellow Eyes", "Black Eyes", "Blue Spirals", "Gold Eyes", "Green Spirals", "White Eyes", "Yellow Spirals"],
-  bodyOptions: ["Robot Body", "Original Body", "Green Body", "Gold Tuxedo", "Old 1800s Outfit", "Alien Hoodie", "Blue Body", "Chefs Coat", "Clown Outfit", "Construction Outfit", "Fire Fighter", "Green Body", "Grey Body", "Monkey Torso", "Native Outfit", "Peace Sign Army Guy", "Police Uniform", "Princess Dress", "Prison Jumpsuit", "Psycho Chibi", "Rain Coat", "Red Body", "Robe", "Samaraui Outfit", "SGB Hoodie", "Skeleton", "Space Suit", "Unicorn Onsie", "White Tuxedo"],
+  bodyOptions: ["Robot Body", "Original Body", "Green Body", "Gold Tuxedo", "Old 1800s Outfit", "Alien Hoodie", "Blue Body", "Chefs Coat", "Clown Outfit", "Construction Outfit", "Fire Fighter", "Green Body", "Grey Body", "Monkey Torso", "Native Outfit", "Peace Sign Army Guy", "Police Uniform", "Princess Dress", "Prison Jumpsuit", "Psycho Chibi", "Rain Coat", "Red Body", "Robe", "Samaraui Outfit", "SGB Hoodie", "Skeleton", "Space Suit", "Unicorn Onsie", "White Tuxedo", "Pickles Warfare"],
   backOptions: ["AK", "Angel Wings", "Rocket Launcher", "Songbird Slugger", "Unicorn AK"],
   backgroundOptions: ["Pink Gradient", "Green Gradient", "Blue Gradient", "Yellow Gradient", "Dotted Swirls", "Foil", "Illusion", "Illusion Spinning", "Orange Gradient", "Purple Waves"]
 };
 
 
-const contractAddress = '0xe7209f2D56F6bAe8C86380f633D3B4819d8E9AA1';
+
+const contractAddress = '0xa63d0F4b62a5E80Cefd6670A38aA09bE5e1C3Add';
 
 function App() {
   const [web3, setWeb3] = useState(null);
@@ -202,6 +208,19 @@ function App() {
 
   const mintNFT = async () => {
     if (!contract) return;
+
+     // Show loading spinner
+     Swal.fire({
+      title: 'Processing...',
+      html: 'Please wait while the transaction is being processed.',
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      allowEnterKey: false
+    });
+    
     
     // Convert selected traits to the format expected by the smart contract
     const traitTypes = ['hatOptions', 'accessoriesOptions', 'headOptions', 'mouthOptions', 'eyeColorOptions', 'bodyOptions','backOptions', 'backgroundOptions'];
@@ -237,12 +256,27 @@ function App() {
       const tokenId = mintTransaction.events.MintNFT.returnValues.tokenId;
       console.log(`NFT minted with tokenId ${tokenId}`);
   
+      
       // Update NFT metadata
       await updateNFTMetadata(tokenId, metadataCID);
       console.log('Token URI updated!');
-    } catch (error) {
-      console.error('Minting failed', error);
-    }
+     // Hide spinner and show success message
+    Swal.fire({
+      title: 'Success!',
+      text: 'NFT minted successfully!',
+      icon: 'success',
+      confirmButtonText: 'Great!'
+    });
+  } catch (error) {
+    console.error('Minting failed', error);
+    // Hide spinner and show error message
+    Swal.fire({
+      title: 'Error!',
+      text: 'Minting failed. Please try again.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
+  }
 };
 
 

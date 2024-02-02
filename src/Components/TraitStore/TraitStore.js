@@ -1,542 +1,485 @@
 import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
-import TraitCard from '../TraitStore/TraitCard';
 import styled from 'styled-components';
 // Import your Chibifactory contract ABI
 import ChibifactoryABI from '../../abi/abi.json'; // Replace with the actual ABI
 import ERC20ABI from '../../abi/ERC20Abi.json'; // Replace with the actual ABI
-
-//Hat Traits
-import KittyImage from '../../Traits/Hat/kitty.png';
-import SGBbeanieImage from '../../Chibi-Traits/Hat/SGBbeanie.png';
-import spinnycapImage from '../../Traits/Hat/spinnycap.png';
-import mohawkImage from '../../Traits/Hat/mohawk.png';
-import SamarauiImage from '../../Traits/Hat/samaraui.png';
-import toadImage from '../../Chibi-Traits/Hat/toad.png';
-import AlienAntennaasImage from '../../Traits/Hat/Alien-antennes.png';
-import AstronuaghtHelmetImage from '../../Traits/Hat/Astronuaght-helmet.png';
-import BlackHairImage from '../../Traits/Hat/black-hair.png';
-import ClownHatImage from '../../Traits/Hat/clown-hat.png';
-import ConstructionHatImage from '../../Traits/Hat/Construction-Hat.png';
-import DevilHornsImage from '../../Traits/Hat/Devil-Horns.png';
-import FirefighterHelmetImage from '../../Traits/Hat/firefighter-helmet.png';
-import GoldenPooImage from '../../Traits/Hat/golden poo.png';
-import GreySGBBeanieImage from '../../Traits/Hat/grey-sgb-beanie.png';
-import HaloImage from '../../Traits/Hat/halo.png';
-import HeadderessImage from '../../Traits/Hat/Headdress.png';
-import HeadphonesImage from '../../Traits/Hat/headphones.png';
-import HippyBucketHatImage from '../../Traits/Hat/Hippy-bucket-hat.png';
-import KingsCrownImage from '../../Traits/Hat/Kings-Crown.png';
-import NFTCapImage from '../../Traits/Hat/NFT-cap.png';
-import NFTSongbirdBeanieImage from '../../Traits/Hat/NFT-SONGBIRD-BEANIE.png';
-import PirateHatImage from '../../Traits/Hat/Pirate-hat.png';
-import PoliceHatImage from '../../Traits/Hat/police-hat.png';
-import PrincessCrownImage from '../../Traits/Hat/Princess-Crown.png';
-import SGBTopHatImage from '../../Traits/Hat/sgb-top-hat.png';
-import SomberoImage from '../../Traits/Hat/sombero.png';
-import SongBirdImage from '../../Traits/Hat/song bird.png';
-import UnicornHornImage from '../../Traits/Hat/Unicorn-Horn.png';
-import VikingHelmetImage from '../../Traits/Hat/viking.png';
-
-//Accessories
-import BandanaImage from '../../Traits/Accessories/bandana.png';
-import EyePatchImage from '../../Traits/Accessories/Eye-Patch.png';
-import FlareTattooImage  from '../../Traits/Accessories/Flare-Tattoo.png';
-import LolliPopImage from '../../Traits/Accessories/lolli-pop.png';
-import PyschoFlowerImage from '../../Traits/Accessories/Psycho-Flower.png';
-import PsychoGemStaffImage from '../../Traits/Accessories/Psycho-Gem-Staff.png';
-import PyschoGemImage from '../../Traits/Accessories/Psycho-Gem.png';
-
-//Head Options
-import originalHeadImage from '../../Traits/Head/original.png';
-import GreenAlienHeadImage from '../../Traits/Head/Green-Alien.png';
-import humanoidHeadImage from '../../Traits/Head/humanoid.png';
-import robotHeadImage from '../../Traits/Head/robot.png';  
-import alienHeadImage from '../../Traits/Head/alien.png';
-import monkeyImage from '../../Traits/Head/monkey.png';
-import goldHeadImage from '../../Traits/Head/goldHead.png';
-import BlueHeadImage from '../../Traits/Head/blueskin.png';
-import GreenHeadImage from '../../Traits/Head/green-skin.png';
-import RedHeadImage from '../../Traits/Head/red-skin.png';
-import SkullImage from '../../Traits/Head/Skull.png';
-import ZombieHeadImage from '../../Traits/Head/ZombieHead.png';
-
-//Mouth Options
-import vampiremouthImage from '../../Traits/Mouth/Vampire-mouth.png';
-import butterImage from '../../Traits/Mouth/butter.png';
-import BigSmileImage from '../../Traits/Mouth/big-smile.png';
-import HappyImage from '../../Traits/Mouth/happy.png';
-import PearlyTeethImage from '../../Traits/Mouth/pearly-teeth.png';
-import SmileImage from '../../Traits/Mouth/smile.png';
-import SmileyTongueImage from '../../Traits/Mouth/smiley-tongue.png';
-import TobaccoPipeImage from '../../Traits/Mouth/tobacco-pipe.png';
-import TongueOutImage from '../../Traits/Mouth/tongue-out.png';
-
-//Eye Options
-import hypnotizeEyesImage from '../../Traits/Eyes/hypnotize-eyes.png';
-import rainbowspiraleyesImage from '../../Traits/Eyes/rainbowspiraleyes.png';
-import doubleeyesImage from '../../Traits/Eyes/double-eyes.png';
-import yellowEyesImage from '../../Traits/Eyes/yellowEyes.png';
-import blackEyesImage from '../../Traits/Eyes/blackEyes.png';
-import blueEyesImage from '../../Traits/Eyes/blue-spirals.png';
-import GoldEyesImage from '../../Traits/Eyes/goldeyes.png';
-import GreenSpiralsImage from '../../Traits/Eyes/green-spirals.png';
-import WhiteEyesImage from '../../Traits/Eyes/White-Eyes.png';
-import YellowSpiralsImage from '../../Traits/Eyes/yellow-spirals.png';
-
-//Body Options
-import robotBodyImage from '../../Traits/Body/robotBody.png';
-import originalBodyImage from '../../Traits/Body/Birthday-suit.png';
-import greenBodyImage from '../../Traits/Body/greenbody.png';
-import goldTuxedoImage from '../../Traits/Body/gold-suit.png';
-import old1800sOutfitImage from '../../Traits/Body/1800s.png';
-import AlienHoodieImage from '../../Traits/Body/Alien-hoodie.png';
-import BlueBodyImage from '../../Traits/Body/Blue-body.png';
-import ChefsCoatImage from '../../Traits/Body/chefs-coat.png';
-import ClownOutfitImage from '../../Traits/Body/Clown.png';
-import ConstructionOutfitImage from '../../Traits/Body/construction.png';
-import FireFighterImage from '../../Traits/Body/Fire-fighter.png';
-import GreenBodyImage from '../../Traits/Body/greenbody.png';
-import GreyBodyImage from '../../Traits/Body/Grey-body.png';
-import MonkeyTorsoImage from '../../Traits/Body/monkey-torso.png';
-import NativeOutfitImage from '../../Traits/Body/Native.png';
-import PeaceSignArmyGuyImage from '../../Traits/Body/Peace-sign-army-guy.png';
-import PoliceUniformImage from '../../Traits/Body/Police-uniform.png';
-import PrincessDressImage from '../../Traits/Body/princess-dress.png';
-import PrisonJumpsuitImage from '../../Traits/Body/prison-jumpsuit.png';
-import PsychoChibiImage from '../../Traits/Body/Psycho-Chibi.png';
-import RainCoatImage from '../../Traits/Body/RainCoat.png';
-import RedBodyImage from '../../Traits/Body/red-body.png';
-import RobeImage from '../../Traits/Body/Robe.png';
-import SamarauiOutFitImage from '../../Traits/Body/Samaraui.png';
-import SGBHoodieImage from '../../Traits/Body/SGB-hoodie.png';
-import SkeletonImage from '../../Traits/Body/Skeleton.png';
-import SpaceSuitImageImage from '../../Traits/Body/Space-suit.png';
-import UnicornOnsieImage from '../../Traits/Body/unicorn-onsie.png';
-import WhiteTuxedoImage from '../../Traits/Body/white-tux.png';
-
-
-//Back Options
-import AKImage from '../../Traits/Back Accessories/ak-47.png';
-import AngelWingsImage from '../../Traits/Back Accessories/Angel-wings.png';
-import RocketLauncherImage from '../../Traits/Back Accessories/Rocket-Launcher.png';
-import SongbirdSluggerImage from '../../Traits/Back Accessories/Songbird-Slugger.png';
-import UnicornAKImage from '../../Traits/Back Accessories/Unicorn-AK.png';
-
-//Background Options
-import pinkGradientbgImage from '../../Traits/Background/pinkGradientbg.jpg';
-import greenGradientbgImage from '../../Traits/Background/greenGradientbg.jpg';
-import blueGradientbgImage from '../../Traits/Background/blueGradientbg.jpg';
-import yellowGradientbgImage from '../../Traits/Background/yellowGradientbg.jpg';
-import DottedSwirlsImage from '../../Traits/Background/dotted swirls.jpg';
-import FoilImage from '../../Traits/Background/Foil.jpg';
-import IllusionImage from '../../Traits/Background/illusion.jpg';
-import IllusionSpinningImage from '../../Traits/Background/illusion spinning.jpg';
-import OrangeGradientImage from '../../Traits/Background/orange.jpg';
-import PurpleWavesImage from '../../Traits/Background/purple waves.jpg';
+import Swal from 'sweetalert2';
 
 
 
+// Hat Traits
+import kitty from '../../Traits/Hat/kitty.png';
+import SGBbeanie from '../../Chibi-Traits/Hat/SGBbeanie.png';
+import spinnycap from '../../Traits/Hat/spinnycap.png';
+import mohawk from '../../Traits/Hat/mohawk.png';
+import Samaraui from '../../Traits/Hat/samaraui.png';
+import toad from '../../Chibi-Traits/Hat/toad.png';
+import AlienAntennaas from '../../Traits/Hat/Alien-antennes.png';
+import AstronuaghtHelmet from '../../Traits/Hat/Astronuaght-helmet.png';
+import BlackHair from '../../Traits/Hat/black-hair.png';
+import ClownHat from '../../Traits/Hat/clown-hat.png';
+import ConstructionHat from '../../Traits/Hat/Construction-Hat.png';
+import DevilHorns from '../../Traits/Hat/Devil-Horns.png';
+import FirefighterHelmet from '../../Traits/Hat/firefighter-helmet.png';
+import GoldenPoo from '../../Traits/Hat/golden poo.png';
+import GreySGBBeanie from '../../Traits/Hat/grey-sgb-beanie.png';
+import Halo from '../../Traits/Hat/halo.png';
+import Headderess from '../../Traits/Hat/Headdress.png';
+import Headphones from '../../Traits/Hat/headphones.png';
+import HippyBucketHat from '../../Traits/Hat/Hippy-bucket-hat.png';
+import KingsCrown from '../../Traits/Hat/Kings-Crown.png';
+import NFTCap from '../../Traits/Hat/NFT-cap.png';
+import NFTSongbirdBeanie from '../../Traits/Hat/NFT-SONGBIRD-BEANIE.png';
+import PirateHat from '../../Traits/Hat/Pirate-hat.png';
+import PoliceHat from '../../Traits/Hat/police-hat.png';
+import PrincessCrown from '../../Traits/Hat/Princess-Crown.png';
+import SGBTopHat from '../../Traits/Hat/sgb-top-hat.png';
+import Sombero from '../../Traits/Hat/sombero.png';
+import SongBird from '../../Traits/Hat/song bird.png';
+import UnicornHorn from '../../Traits/Hat/Unicorn-Horn.png';
+import VikingHelmet from '../../Traits/Hat/viking.png';
 
+// Accessories
+import Bandana from '../../Traits/Accessories/bandana.png';
+import EyePatch from '../../Traits/Accessories/Eye-Patch.png';
+import FlareTattoo from '../../Traits/Accessories/Flare-Tattoo.png';
+import LolliPop from '../../Traits/Accessories/lolli-pop.png';
+import PyschoFlower from '../../Traits/Accessories/Psycho-Flower.png';
+import PsychoGemStaff from '../../Traits/Accessories/Psycho-Gem-Staff.png';
+import PyschoGem from '../../Traits/Accessories/Psycho-Gem.png';
 
-const HatOptions = {
-    Kitty: 0,
-    Beanie: 1,
-    Toad: 2,
-    Spinnycap: 3,
-    Mohawk: 4,
-    Samurai: 5,
-    AlienAntennaas: 6,
-    AstronuaghtHelmet: 7,
-    BlackHair: 8,
-    ClownHat: 9,
-    ConstructionHat: 10,
-    DevilHorns: 11,
-    FirefighterHelmet: 12,
-    GoldenPoo: 13,
-    GreySGBBeanie: 14,
-    Halo: 15,
-    Headderess: 16,
-    Headphones: 17,
-    HippyBucketHat: 18,
-    KingsCrown: 19,
-    NFTCap: 20,
-    NFTSongbirdBeanie: 21,
-    PirateHat: 22,
-    PoliceHat: 23,
-    PrincessCrown: 24,
-    SGBTopHat: 25,
-    Sombero: 26,
-    SongBird: 27,
-    UnicornHorn: 28,
-    VikingHelmet: 29,
-    // ... other hats
+// Head Options
+import originalHead from '../../Traits/Head/original.png';
+import GreenAlienHead from '../../Traits/Head/Green-Alien.png';
+import humanoidHead from '../../Traits/Head/humanoid.png';
+import robotHead from '../../Traits/Head/robot.png';
+import alienHead from '../../Traits/Head/alien.png';
+import monkey from '../../Traits/Head/monkey.png';
+import goldHead from '../../Traits/Head/goldHead.png';
+import BlueHead from '../../Traits/Head/blueskin.png';
+import GreenHead from '../../Traits/Head/green-skin.png';
+import RedHead from '../../Traits/Head/red-skin.png';
+import Skull from '../../Traits/Head/Skull.png';
+import ZombieHead from '../../Traits/Head/ZombieHead.png';
 
+// Mouth Options
+import vampiremouth from '../../Traits/Mouth/Vampire-mouth.png';
+import butter from '../../Traits/Mouth/butter.png';
+import BigSmile from '../../Traits/Mouth/big-smile.png';
+import Happy from '../../Traits/Mouth/happy.png';
+import PearlyTeeth from '../../Traits/Mouth/pearly-teeth.png';
+import Smile from '../../Traits/Mouth/smile.png';
+import SmileyTongue from '../../Traits/Mouth/smiley-tongue.png';
+import TobaccoPipe from '../../Traits/Mouth/tobacco-pipe.png';
+import TongueOut from '../../Traits/Mouth/tongue-out.png';
 
+// Eye Options
+import hypnotizeEyes from '../../Traits/Eyes/hypnotize-eyes.png';
+import rainbowspiraleyes from '../../Traits/Eyes/rainbowspiraleyes.png';
+import doubleeyes from '../../Traits/Eyes/double-eyes.png';
+import yellowEyes from '../../Traits/Eyes/yellowEyes.png';
+import blackEyes from '../../Traits/Eyes/blackEyes.png';
+import blueEyes from '../../Traits/Eyes/blue-spirals.png';
+import GoldEyes from '../../Traits/Eyes/goldeyes.png';
+import GreenSpirals from '../../Traits/Eyes/green-spirals.png';
+import WhiteEyes from '../../Traits/Eyes/White-Eyes.png';
+import YellowSpirals from '../../Traits/Eyes/yellow-spirals.png';
 
-  };
+// Body Options
+import robotBody from '../../Traits/Body/robotBody.png';
+import originalBody from '../../Traits/Body/Birthday-suit.png';
+import greenBody from '../../Traits/Body/greenbody.png';
+import goldTuxedo from '../../Traits/Body/gold-suit.png';
+import old1800sOutfit from '../../Traits/Body/1800s.png';
+import AlienHoodie from '../../Traits/Body/Alien-hoodie.png';
+import BlueBody from '../../Traits/Body/Blue-body.png';
+import ChefsCoat from '../../Traits/Body/chefs-coat.png';
+import ClownOutfit from '../../Traits/Body/Clown.png';
+import ConstructionOutfit from '../../Traits/Body/construction.png';
+import FireFighter from '../../Traits/Body/Fire-fighter.png';
+import GreenBody from '../../Traits/Body/greenbody.png';
+import GreyBody from '../../Traits/Body/Grey-body.png';
+import MonkeyTorso from '../../Traits/Body/monkey-torso.png';
+import NativeOutfit from '../../Traits/Body/Native.png';
+import PeaceSignArmyGuy from '../../Traits/Body/Peace-sign-army-guy.png';
+import PoliceUniform from '../../Traits/Body/Police-uniform.png';
+import PrincessDress from '../../Traits/Body/princess-dress.png';
+import PrisonJumpsuit from '../../Traits/Body/prison-jumpsuit.png';
+import PsychoChibi from '../../Traits/Body/Psycho-Chibi.png';
+import RainCoat from '../../Traits/Body/RainCoat.png';
+import RedBody from '../../Traits/Body/red-body.png';
+import Robe from '../../Traits/Body/Robe.png';
+import SamarauiOutFit from '../../Traits/Body/Samaraui.png';
+import SGBHoodie from '../../Traits/Body/SGB-hoodie.png';
+import Skeleton from '../../Traits/Body/Skeleton.png';
+import SpaceSuit from '../../Traits/Body/Space-suit.png';
+import UnicornOnsie from '../../Traits/Body/unicorn-onsie.png';
+import WhiteTuxedo from '../../Traits/Body/white-tux.png';
+import PicklesWarfare from '../../Traits/Body/PicklesWarfare.png';
 
-  const AccessoriesOptions = {
-    Bandana: 0,
-    EyePatch: 1,
-    FlareTattoo: 2,
-    LolliPop: 3,
-    PyschoFlower: 4,
-    PsychoGemStaff: 5,
-    PyschoGem: 6,
-    // ... other accessories
-  };
+// Back Options
+import AK from '../../Traits/Back Accessories/ak-47.png';
+import AngelWings from '../../Traits/Back Accessories/Angel-wings.png';
+import RocketLauncher from '../../Traits/Back Accessories/Rocket-Launcher.png';
+import SongbirdSlugger from '../../Traits/Back Accessories/Songbird-Slugger.png';
+import UnicornAK from '../../Traits/Back Accessories/Unicorn-AK.png';
+
+// Background Options
+import pinkGradientbg from '../../Traits/Background/pinkGradientbg.jpg';
+import greenGradientbg from '../../Traits/Background/greenGradientbg.jpg';
+import blueGradientbg from '../../Traits/Background/blueGradientbg.jpg';
+import yellowGradientbg from '../../Traits/Background/yellowGradientbg.jpg';
+import DottedSwirls from '../../Traits/Background/dotted swirls.jpg';
+import Foil from '../../Traits/Background/Foil.jpg';
+import Illusion from '../../Traits/Background/illusion.jpg';
+import IllusionSpinning from '../../Traits/Background/illusion spinning.jpg';
+import OrangeGradient from '../../Traits/Background/orange.jpg';
+import PurpleWaves from '../../Traits/Background/purple waves.jpg';
+
+import BN from 'bn.js';
 
 
 
 
-    const HeadOptions = {
-    OriginalHead: 0,
-    GreenAlienHead: 1,
-    HumanoidHead: 2,
-    RobotHead: 3,
-    AlienHead: 4,
-    GoldHead: 5,
-    MonkeyHead: 6,
-    BlueHead: 7,
-    GreenHead: 8,
-    RedHead: 9,
-    Skull: 10,
-    ZombieHead: 11,
-
- 
-    
-    };
-
-    const MouthOptions = {
-    VampireMouth: 0,
-    Butter: 1,
-    BigSmile: 2,
-    Happy: 3,
-    PearlyTeeth: 4,
-    Smile: 5,
-    SmileyTongue: 6,
-    TobaccoPipe: 7,
-    TongueOut: 8,
-
-      
-    };
-
-    const EyeColorOptions = {
-    HypnotizeEyes: 0,
-    RainbowSpiralEyes: 1,
-    DoubleEyes: 2,
-    YellowEyes: 3,
-    BlackEyes: 4,
-    BlueEyes: 5,
-    GoldenEyes: 6,
-    GreenSpirals: 7,
-    WhiteEyes: 8,
-    YellowSpirals: 9,
-    
-   
-
-    };
-
-    const BodyOptions = {
-    RobotBody: 0,
-    OriginalBody: 1,
-    GreenBody: 2,
-    GoldTuxedo: 3,
-    Old1800sOutfit: 4,
-    AlienHoodie: 5,
-    BlueBody: 6,
-    ChefsCoat: 7,
-    ClownOutfit: 8,
-    ConstructionOutfit: 9,
-    FireFighter: 10,
-    GreyBody: 11,
-    MonkeyTorso: 12,
-    NativeOutfit: 13,
-    PeaceSignArmyGuy: 14,
-    PoliceUniform: 15,
-    PrincessDress: 16,
-    PrisonJumpsuit: 17,
-    PsychoChibi: 18,
-    RainCoat: 19,
-    RedBody: 20,
-    Robe: 21,
-    SamarauiOutFit: 22,
-    SGBHoodie: 23,
-    Skeleton: 24,
-    SpaceSuit: 25,
-    UnicornOnsie: 26,
-    WhiteTuxedo: 27,
-    // ... other bodies
-    };
-
-
-    const BackOptions = {
-    AK: 0,
-    AngelWings: 1,
-    RocketLauncher: 2,
-    SongbirdSlugger: 3,
-    UnicornAK: 4,
-    // ... other backs
-    };
 
 
 
-    const BackgroundOptions = {
-    PinkGradient: 0,
-    GreenGradient: 1,
-    BlueGradient: 2,
-    YellowGradient: 3,
-    Holo: 4,
-    Illusion: 5,
-    Spiral: 6,
-    DottedIllusion: 7,    
-    OrangeGradient: 8,
-    PurpleWaves: 9,
-
-
-    };
-
-    // Create a traitOptions object
-const traitOptions = {
-    hatOptions: Object.values(HatOptions),
-    accessoriesOptions: Object.values(AccessoriesOptions),
-    headOptions: Object.values(HeadOptions),
-    mouthOptions: Object.values(MouthOptions),
-    eyeColorOptions: Object.values(EyeColorOptions),
-    bodyOptions: Object.values(BodyOptions),
-    backOptions: Object.values(BackOptions),
-    backgroundOptions: Object.values(BackgroundOptions),
-  };
-
-  const traitImages = {
-    hatOptions: [KittyImage, SGBbeanieImage, toadImage, spinnycapImage, mohawkImage, SamarauiImage, AlienAntennaasImage, AstronuaghtHelmetImage, BlackHairImage, ClownHatImage, ConstructionHatImage, DevilHornsImage, FirefighterHelmetImage, GoldenPooImage, GreySGBBeanieImage, HaloImage, HeadderessImage, HeadphonesImage, HippyBucketHatImage, KingsCrownImage, NFTCapImage, NFTSongbirdBeanieImage, PirateHatImage, PoliceHatImage, PrincessCrownImage, SGBTopHatImage, SomberoImage, SongBirdImage, UnicornHornImage, VikingHelmetImage],
-    accessoriesOptions: [BandanaImage, EyePatchImage, FlareTattooImage, LolliPopImage, PyschoFlowerImage, PsychoGemStaffImage, PyschoGemImage],
-    headOptions: [originalHeadImage, GreenAlienHeadImage, humanoidHeadImage, robotHeadImage, alienHeadImage, goldHeadImage, monkeyImage, BlueHeadImage, GreenHeadImage, RedHeadImage, SkullImage, ZombieHeadImage],
-    mouthOptions: [vampiremouthImage, butterImage, BigSmileImage, HappyImage, PearlyTeethImage, SmileImage, SmileyTongueImage, TobaccoPipeImage, TongueOutImage],
-    eyeColorOptions: [hypnotizeEyesImage, rainbowspiraleyesImage, doubleeyesImage, yellowEyesImage, blackEyesImage, blueEyesImage, GoldEyesImage, GreenSpiralsImage, WhiteEyesImage, YellowSpiralsImage],
-    bodyOptions: [robotBodyImage, originalBodyImage, greenBodyImage, goldTuxedoImage, old1800sOutfitImage, AlienHoodieImage, BlueBodyImage, ChefsCoatImage, ClownOutfitImage, ConstructionOutfitImage, FireFighterImage, GreenBodyImage, GreyBodyImage, MonkeyTorsoImage, NativeOutfitImage, PeaceSignArmyGuyImage, PoliceUniformImage, PrincessDressImage, PrisonJumpsuitImage, PsychoChibiImage, RainCoatImage, RedBodyImage, RobeImage, SamarauiOutFitImage, SGBHoodieImage, SkeletonImage, SpaceSuitImageImage, UnicornOnsieImage, WhiteTuxedoImage],
-    backOptions: [AKImage, AngelWingsImage, RocketLauncherImage, SongbirdSluggerImage, UnicornAKImage],
-    backgroundOptions: [pinkGradientbgImage, greenGradientbgImage, blueGradientbgImage, yellowGradientbgImage, DottedSwirlsImage, FoilImage, IllusionImage, IllusionSpinningImage, OrangeGradientImage, PurpleWavesImage]
-  };
-
-  const traitNames = {
-    hatOptions: Object.keys(HatOptions),
-    accessoriesOptions: Object.keys(AccessoriesOptions),
-    headOptions: Object.keys(HeadOptions),
-    mouthOptions: Object.keys(MouthOptions),
-    eyeColorOptions: Object.keys(EyeColorOptions),
-    bodyOptions: Object.keys(BodyOptions),
-    backOptions: Object.keys(BackOptions),
-    backgroundOptions: Object.keys(BackgroundOptions),
-    };
-
-
-const Container = styled.div`
-  text-align: center;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 100%;
-  margin: 0 auto;
-    margin-top: 40px;
-`;
-
-const Heading1 = styled.h1`
-  font-size: 36px;
-  color: #fff;
-  margin-bottom: 20px;
-  text-shadow: 0 10px 10px rgba(0, 0, 0, 0.9);
-
-`;
-
-const Paragraph = styled.p`
-  font-size: 18px;
-  color: #fff;
-  margin-bottom: 30px;
-  text-shadow: 0 10px 10px rgba(0, 0, 0, 0.9);
-`;
-
-const TraitCategory = styled.div`
-  margin-top: 30px;
-`;
-
-const TraitStoreWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
-const TraitStore = () => {
-  const [web3, setWeb3] = useState(null);
-  const [contract, setContract] = useState(null);
-  const [account, setAccount] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [traitPrices, setTraitPrices] = useState({
-    hatOptions: [],
-    accessoriesOptions: [],
-    headOptions: [],
-    mouthOptions: [],
-    eyeColorOptions: [],
-    bodyOptions: [],
-    backOptions: [],
-    backgroundOptions: [],
-  });
-
-
-  useEffect(() => {
-    // Connect to Web3
-    const connectToWeb3 = async () => {
-      if (window.ethereum) {
-        const web3Instance = new Web3(window.ethereum);
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-        const chibifactoryContract = new web3Instance.eth.Contract(
-          ChibifactoryABI,
-          '0xc53C20b3CAE68A9ECfF933935CAB2F8C854ff46f'
-        );
-
-        const accounts = await web3Instance.eth.getAccounts();
-        const userAddress = accounts[0];
-
-        setWeb3(web3Instance);
-        setContract(chibifactoryContract);
-        setAccount(userAddress);
-      }
-    };
-
-    connectToWeb3();
-  }, []);
-
- 
-    useEffect(() => {
-        // Fetch trait prices from the blockchain
-        const fetchTraitPrices = async () => {
-          const hatPrices = await Promise.all(traitOptions.hatOptions.map((option) => contract.methods.getHatPrice(option).call()));
-          const accessoriesPrices = await Promise.all(traitOptions.accessoriesOptions.map((option) => contract.methods.getAccessoriesPrice(option).call()));
-          const headPrices = await Promise.all(traitOptions.headOptions.map((option) => contract.methods.getHeadPrice(option).call()));
-          const mouthPrices = await Promise.all(traitOptions.mouthOptions.map((option) => contract.methods.getMouthPrice(option).call()));
-          const eyeColorPrices = await Promise.all(traitOptions.eyeColorOptions.map((option) => contract.methods.getEyeColorPrice(option).call()));
-          const bodyPrices = await Promise.all(traitOptions.bodyOptions.map((option) => contract.methods.getBodyPrice(option).call()));
-          const backPrices = await Promise.all(traitOptions.backOptions.map((option) => contract.methods.getBackPrice(option).call()));
-          const backgroundPrices = await Promise.all(traitOptions.backgroundOptions.map((option) => contract.methods.getBackgroundPrice(option).call()));
-      console.log(hatPrices, accessoriesPrices, headPrices, mouthPrices, eyeColorPrices, bodyPrices, backPrices, backgroundPrices);
-          setTraitPrices({
-            hatOptions: hatPrices,
-            accessoriesOptions: accessoriesPrices,
-            headOptions: headPrices,
-            mouthOptions: mouthPrices,
-            eyeColorOptions: eyeColorPrices,
-            bodyOptions: bodyPrices,
-            backOptions: backPrices,
-            backgroundOptions: backgroundPrices,
-          });
-        };
-      
-        if (contract) {
-          fetchTraitPrices();
-        }
-      }, [contract]);
 
 
 
-      const approveTraitPurchase = async (spender, amount) => {
-        try {
-          setLoading(true);
-    
-          // Replace 'yourERC20ContractAddress' with the actual address of your ERC20 contract
-          const erc20ContractAddress = '0xa27bC320252d51EEAA24BCCF6cc003979E485860';
-          
-          // Use the web3 instance to create a contract object for the ERC20 contract
-          const erc20Contract = new web3.eth.Contract(ERC20ABI, erc20ContractAddress);
-    
-          // Call the 'approve' method on the ERC20 contract to approve the spender
-          await erc20Contract.methods.approve(spender, amount).send({ from: account });
-    
-          console.log('Successfully approved trait purchase!');
-        } catch (error) {
-          console.error('Error approving trait purchase:', error.message);
-        } finally {
-          setLoading(false);
-        }
-      };
-    
-      const purchaseTrait = async (traitType, selectedTrait) => {
-        try {
-          setLoading(true);
-    
-          // Map trait names to enum values
-          const traitEnumValue = traitOptions[traitType][selectedTrait];
-          const traitPrice = traitPrices[traitType][selectedTrait];
-    
-          // Replace 'ChibifactoryContractAddress' with the actual address of your Chibifactory contract
-          const chibifactoryContractAddress = '0xc53C20b3CAE68A9ECfF933935CAB2F8C854ff46f';
-    
-          // Call the approveTraitPurchase function before proceeding with trait purchase
-          await approveTraitPurchase(chibifactoryContractAddress, traitPrice);
-    
-          // Proceed with the trait purchase after approval
-          switch (traitType) {
-            case 'hatOptions':
-              await contract.methods.purchaseHatTrait(traitEnumValue).send({ from: account });
-              break;
-            case 'accessoriesOptions':
-              await contract.methods.purchaseAccessoriesTrait(traitEnumValue).send({ from: account });
-              break;
-            case 'headOptions':
-        await contract.methods.purchaseHeadTrait(traitEnumValue).send({ from: account });
-        break;
-      case 'mouthOptions':
-        await contract.methods.purchaseMouthTrait(traitEnumValue).send({ from: account });
-        break;
-      case 'eyeColorOptions':
-        await contract.methods.purchaseEyeColorTrait(traitEnumValue).send({ from: account });
-        break;
-      case 'bodyOptions':
-        await contract.methods.purchaseBodyTrait(traitEnumValue).send({ from: account });
-        break;
-      case 'backOptions':
-        await contract.methods.purchaseBackTrait(traitEnumValue).send({ from: account });
-        break;
-      case 'backgroundOptions':
-        await contract.methods.purchaseBackgroundTrait(traitEnumValue).send({ from: account });
-        break;
-      default:
-        console.error('Invalid trait type');
+
+const traitImageMap = {
+    hatOptions: {
+        "0": kitty, "1": SGBbeanie, "2": toad, "3": spinnycap, "4": mohawk, "5": Samaraui, "6": AlienAntennaas, "7": AstronuaghtHelmet, "8": BlackHair, "9": ClownHat, "10": ConstructionHat, "11": DevilHorns, "12": FirefighterHelmet, "13": GoldenPoo, "14": GreySGBBeanie, "15": Halo, "16": Headderess, "17": Headphones, "18": HippyBucketHat, "19": KingsCrown, "20": NFTCap, "21": NFTSongbirdBeanie, "22": PirateHat, "23": PoliceHat, "24": PrincessCrown, "25": SGBTopHat, "26": Sombero, "27": SongBird, "28": UnicornHorn, "29": VikingHelmet // ... other hats
+    },
+    accessoriesOptions: {
+        "0": Bandana, "1": EyePatch, "2": FlareTattoo, "3": LolliPop, "4": PyschoFlower, "5": PsychoGemStaff, "6": PyschoGem // ... other accessories
+    },
+    headOptions: {
+        "0": originalHead, "1": GreenAlienHead, "2": humanoidHead, "3": robotHead, "4": alienHead, "5": goldHead, "6": monkey, "7": BlueHead, "8": GreenHead, "9": RedHead, "10": Skull, "11": ZombieHead // ... other heads
+    },
+    mouthOptions: {
+        "0": vampiremouth, "1": butter, "2": BigSmile, "3": Happy, "4": PearlyTeeth, "5": Smile, "6": SmileyTongue, "7": TobaccoPipe, "8": TongueOut // ... other mouths
+    },
+    eyeColorOptions: {
+        "0": hypnotizeEyes, "1": rainbowspiraleyes, "2": doubleeyes, "3": yellowEyes, "4": blackEyes, "5": blueEyes, "6": GoldEyes, "7": GreenSpirals, "8": WhiteEyes, "9": YellowSpirals // ... other eye colors
+    },
+    bodyOptions: {
+        "0": robotBody, "1": originalBody,"2": greenBody, "3": goldTuxedo, "4": old1800sOutfit, "5": AlienHoodie, "6": BlueBody, "7": ChefsCoat, "8": ClownOutfit, "9": ConstructionOutfit, "10": FireFighter, "11": GreenBody, "12": GreyBody, "13": MonkeyTorso, "14": NativeOutfit, "15": PeaceSignArmyGuy, "16": PoliceUniform, "17": PrincessDress, "18": PrisonJumpsuit, "19": PsychoChibi, "20": RainCoat, "21": RedBody, "22": Robe, "23": SamarauiOutFit, "24": SGBHoodie, "25": Skeleton, "26": SpaceSuit, "27": UnicornOnsie, "28": WhiteTuxedo, "29": PicklesWarfare // ... other bodies
+    },
+    backOptions: {
+        "0": AK, "1": AngelWings, "2": RocketLauncher, "3": SongbirdSlugger, "4": UnicornAK // ... other backs
+    },
+
+    backgroundOptions: {
+        "0": pinkGradientbg, "1": greenGradientbg, "2": blueGradientbg, "3": yellowGradientbg, "4": DottedSwirls, "5": Foil, "6": Illusion, "7": IllusionSpinning, "8": OrangeGradient, "9": PurpleWaves // ... other backgrounds
     }
+};
 
-    console.log(`Successfully purchased ${selectedTrait} trait!`);
-  } catch (error) {
-    console.error('Error purchasing trait:', error.message);
-  } finally {
-    setLoading(false);
-  }
+
+  // Define a mapping from indices to descriptive names
+  const traitNames = {
+    hatOptions: ["Kitty", "SGB Beanie", "Toad", "Spinnycap", "Mohawk", "Samaraui", "Alien Antennaas", "Astronuaght Helmet", "Black Hair", "Clown Hat", "Construction Hat", "Devil Horns", "Firefighter Helmet", "Golden Poo", "Grey SGB Beanie", "Halo", "Headderess", "Headphones", "Hippy Bucket Hat", "Kings Crown", "NFT Cap", "NFT Songbird Beanie", "Pirate Hat", "Police Hat", "Princess Crown", "SGB Top Hat", "Sombero", "Song Bird", "Unicorn Horn", "Viking Helmet"],
+    accessoriesOptions: ["Bandana", "Eye Patch", "Flare Tattoo", "Lolli Pop", "Psycho Flower", "Psycho Gem Staff", "Psycho Gem"],
+    headOptions: ["Original Head", "Green Alien Head", "Humanoid Head", "Robot Head", "Alien Head", "Gold Head", "Monkey", "Blue Head", "Green Head", "Red Head", "Skull", "Zombie Head"],
+    mouthOptions: ["Vampire Mouth", "Butter", "Big Smile", "Happy", "Pearly Teeth", "Smile", "Smiley Tongue", "Tobacco Pipe", "Tongue Out"],
+    eyeColorOptions: ["Hypnotize Eyes", "Rainbow Spiral Eyes", "Double Eyes", "Yellow Eyes", "Black Eyes", "Blue Spirals", "Gold Eyes", "Green Spirals", "White Eyes", "Yellow Spirals"],
+    bodyOptions: ["Robot Body", "Original Body", "Green Body", "Gold Tuxedo", "Old 1800s Outfit", "Alien Hoodie", "Blue Body", "Chefs Coat", "Clown Outfit", "Construction Outfit", "Fire Fighter", "Green Body", "Grey Body", "Monkey Torso", "Native Outfit", "Peace Sign Army Guy", "Police Uniform", "Princess Dress", "Prison Jumpsuit", "Psycho Chibi", "Rain Coat", "Red Body", "Robe", "Samaraui Outfit", "SGB Hoodie", "Skeleton", "Space Suit", "Unicorn Onsie", "White Tuxedo", "Pickles Warfare"],
+    backOptions: ["AK", "Angel Wings", "Rocket Launcher", "Songbird Slugger", "Unicorn AK"],
+    backgroundOptions: ["Pink Gradient", "Green Gradient", "Blue Gradient", "Yellow Gradient", "Dotted Swirls", "Foil", "Illusion", "Illusion Spinning", "Orange Gradient", "Purple Waves"]
+  };
+
+
+  
+const StoreFront = styled.div`
+  background-size: cover;
+background-color: #333;
+  background-repeat: no-repeat;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  width: 100%;  
+  font-family: Arial, sans-serif;
+`;
+
+const Header = styled.h2`
+  font-size: 24px;
+  margin-bottom: 20px;
+`;
+
+const TraitSelect = styled.select`
+  background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  padding: 10px;
+  margin-right: 10px;
+`;
+
+const PurchaseButton = styled.button`
+  background-color: #f37506;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  padding: 10px 20px;
+  cursor: pointer;
+`;
+
+const TraitGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+`;
+
+
+const traitTypeToNumber = {
+  'hatOptions': 0,
+  'accessoriesOptions': 1,
+  'headOptions': 2,
+  'mouthOptions': 3,
+  'eyeColorOptions': 4,
+  'bodyOptions': 5,
+  'backOptions': 6,
+  'backgroundOptions': 7,
+  // ... other mappings
 };
 
 
 
-  return (
-    <Container>
-      <Heading1>Trait Store</Heading1>
-      <Paragraph>Connected Account: {account}</Paragraph>
 
-      {/* Display cards for each trait category */}
-       {Object.keys(traitOptions).map((traitType) => (
-    <TraitCategory key={traitType}>
-      <Heading1>{traitType}</Heading1>
-      <TraitStoreWrapper>
-        {traitOptions[traitType].map((trait, index) => (
+// Assuming the contract address is constant
+const CONTRACT_ADDRESS = "0xa63d0F4b62a5E80Cefd6670A38aA09bE5e1C3Add";
+
+
+const TraitCard = ({ image, name, supply, price, onPurchase, traitTypeNumber, optionNumber }) => {
+  const handlePurchase = () => {
+    onPurchase(traitTypeNumber, optionNumber);
+  };
+
+  return (
+    <Card>
+      <img src={image} alt={name} />
+      <p>{name}</p>
+      <p>Supply: {supply !== undefined ? supply.toString() : 'Loading...'}</p>
+      <p>Price: {price !== undefined ? price.toString() : 'Loading...'}</p>
+      <PurchaseButton onClick={handlePurchase}>Purchase</PurchaseButton>
+    </Card>
+  );
+};
+// Styled component for the cards
+const Card = styled.div`
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+`;
+
+const TraitStore = () => {
+  const [web3, setWeb3] = useState(null);
+  const [contract, setContract] = useState(null);
+  const [selectedTraitType, setSelectedTraitType] = useState('hatOptions');
+  const [selectedOption, setSelectedOption] = useState('0');
+  const [traitData, setTraitData] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [account, setAccount] = useState(null);
+  useEffect(() => {
+    const init = async () => {
+      if (window.ethereum) {
+        const web3Instance = new Web3(window.ethereum);
+        setWeb3(web3Instance);
+        const chibifactoryContract = new web3Instance.eth.Contract(
+          ChibifactoryABI,
+          CONTRACT_ADDRESS
+        );
+        setContract(chibifactoryContract);
+        await fetchAllTraitData(chibifactoryContract); // Pass the contract to the function
+      } else {
+        alert('Please install MetaMask to use this feature.');
+      }
+    };
+  
+    init(); // Call the async init function
+  }, []);
+  
+  const fetchAllTraitData = async (contract) => {
+    const allTraitData = {};
+    for (const traitType in traitTypeToNumber) {
+      const traitTypeNumber = traitTypeToNumber[traitType];
+      for (const optionKey in traitImageMap[traitType]) {
+        try {
+          const optionNumber = parseInt(optionKey);
+          const result = await contract.methods.getTraitSupplyAndPrice(traitTypeNumber, optionNumber).call();
+          allTraitData[`${traitTypeNumber}-${optionNumber}`] = {
+            supply: parseInt(result.supply), // Convert to number
+            price: parseInt(result.price) // Convert to number
+          };
+        } catch (error) {
+          console.error(`Error fetching data for trait type number: ${traitTypeNumber}, option key: ${optionKey}`, error);
+        }
+      }
+    }
+    setTraitData(allTraitData);
+  };
+
+  const traitOptions = Object.keys(traitImageMap);
+
+  const handleTraitTypeChange = (event) => {
+    const newTraitType = event.target.value;
+    setSelectedTraitType(newTraitType);
+    const firstOptionKey = Object.keys(traitImageMap[newTraitType])[0];
+    setSelectedOption(firstOptionKey);
+    console.log(`Trait type change - New trait type: ${newTraitType}, Mapped number: ${traitTypeToNumber[newTraitType]}, First option key: ${firstOptionKey}`);
+    fetchTraitData(traitTypeToNumber[newTraitType], firstOptionKey);
+  };
+  
+
+  const fetchTraitData = async (traitTypeNumber, optionKey) => {
+    console.log(`Fetching data for trait type number: ${traitTypeNumber}, option key: ${optionKey}`);
+    try {
+      const optionNumber = parseInt(optionKey);
+      const result = await contract.methods.getTraitSupplyAndPrice(traitTypeNumber, optionNumber).call();
+      console.log(`Result for trait type number: ${traitTypeNumber}, option number: ${optionNumber}`, result);
+      // Update the state with new data for the trait option
+      setTraitData(prevData => ({
+        ...prevData,
+        [`${traitTypeNumber}-${optionNumber}`]: {
+          supply: result.supply,
+          price: result.price
+        }
+      }));
+    } catch (error) {
+      console.error('Error fetching trait data:', error);
+    }
+  };
+
+  const checkAllowance = async (owner, spender) => {
+    const erc20ContractAddress = '0x573496D483942dd90974d94FFA0499B432d8d196';
+    const erc20Contract = new web3.eth.Contract(ERC20ABI, erc20ContractAddress);
+  
+    try {
+      const allowance = await erc20Contract.methods.allowance(owner, spender).call();
+      return allowance;
+    } catch (error) {
+      console.error('Error checking allowance:', error);
+      return '0';
+    }
+  };
+  
+  const approveTraitPurchase = async (spender, amount) => {
+    try {
+      setLoading(true);
+  
+      const erc20ContractAddress = '0x573496D483942dd90974d94FFA0499B432d8d196';
+      const erc20Contract = new web3.eth.Contract(ERC20ABI, erc20ContractAddress);
+  
+      const accounts = await web3.eth.getAccounts();
+      if (accounts.length === 0) throw new Error('No accounts found. Please connect with MetaMask.');
+  
+      const currentAllowance = await checkAllowance(accounts[0], spender);
+      const requiredAmount = new BN(amount);
+  
+      if (new BN(currentAllowance).lt(requiredAmount)) {
+        // Proceed with approval as current allowance is less than required
+        await erc20Contract.methods.approve(spender, amount).send({ from: accounts[0] });
+        console.log('Successfully approved trait purchase!');
+      } else {
+        console.log('Sufficient allowance already granted.');
+      }
+    } catch (error) {
+      console.error('Error approving trait purchase:', error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+    
+  const purchaseTrait = async (traitTypeNumber, optionNumber) => {
+    if (!web3 || !contract) return;
+  
+    try {
+      setLoading(true);
+      // Show spinner here
+      Swal.fire({
+        title: 'Processing...',
+        html: 'Please wait while your transaction is being processed.',
+        didOpen: () => {
+          Swal.showLoading();
+        },
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false
+      });
+      const accounts = await web3.eth.getAccounts();
+      const traitKey = `${traitTypeNumber}-${optionNumber}`;
+      const traitInfo = traitData[traitKey];
+      if (!traitInfo) throw new Error('Trait info not found');
+  
+      // First approve the necessary amount
+      await approveTraitPurchase(CONTRACT_ADDRESS, 1000);
+  
+      // Then make the purchase
+      await contract.methods
+        .purchaseTrait(traitTypeNumber, optionNumber)
+        .send({ from: accounts[0] });
+  
+      // Display success alert with Sweet Alert 2
+      Swal.fire({
+        title: 'Success!',
+        text: 'Trait purchased successfully!',
+        icon: 'success',
+        confirmButtonText: 'Cool'
+      });
+  
+    } catch (error) {
+      console.error('Error purchasing trait:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Error purchasing trait.',
+        icon: 'error',
+        confirmButtonText: 'OK'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <StoreFront>
+      <Header>Trait Store</Header>
+      <div>
+        <TraitSelect value={selectedTraitType} onChange={handleTraitTypeChange}>
+          {traitOptions.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </TraitSelect>
+     
+      </div>
+      <TraitGrid>
+      {Object.keys(traitImageMap[selectedTraitType]).map((option) => {
+        const traitKey = `${traitTypeToNumber[selectedTraitType]}-${option}`;
+        const { supply, price } = traitData[traitKey] || {};
+        return (
           <TraitCard
-            key={traitNames[traitType][index]}
-            traitName={traitNames[traitType][index]}
-            traitImage={traitImages[traitType][index]} // Add this line to pass the image to TraitCard
-            purchaseTrait={() => purchaseTrait(traitType, trait)}
-            loading={loading}
-            traitPrice={traitPrices[traitType][index]}
+            key={option}
+            image={traitImageMap[selectedTraitType][option]}
+            name={traitNames[selectedTraitType][option]}
+            supply={supply}
+            price={price}
+            onPurchase={purchaseTrait}
+            traitTypeNumber={traitTypeToNumber[selectedTraitType]}
+            optionNumber={parseInt(option)}
           />
-        ))}
-      </TraitStoreWrapper>
-    </TraitCategory>
-  ))}
-    </Container>
+        );
+      })}
+    </TraitGrid>
+    </StoreFront>
   );
 };
 

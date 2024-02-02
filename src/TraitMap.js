@@ -110,7 +110,7 @@ import Skeleton from './Traits/Body/Skeleton.png';
 import SpaceSuit from './Traits/Body/Space-suit.png';
 import UnicornOnsie from './Traits/Body/unicorn-onsie.png';
 import WhiteTuxedo from './Traits/Body/white-tux.png';
-
+import PicklesWarfare from './Traits/Body/PicklesWarfare.png';
 
 //Back Options
 import AK from './Traits/Back Accessories/ak-47.png';
@@ -159,7 +159,7 @@ const traitImageMap = {
         "0": hypnotizeEyes, "1": rainbowspiraleyes, "2": doubleeyes, "3": yellowEyes, "4": blackEyes, "5": blueEyes, "6": GoldEyes, "7": GreenSpirals, "8": WhiteEyes, "9": YellowSpirals // ... other eye colors
     },
     bodyOptions: {
-        "0": robotBody, "1": originalBody,"2": greenBody, "3": goldTuxedo, "4": old1800sOutfit, "5": AlienHoodie, "6": BlueBody, "7": ChefsCoat, "8": ClownOutfit, "9": ConstructionOutfit, "10": FireFighter, "11": GreenBody, "12": GreyBody, "13": MonkeyTorso, "14": NativeOutfit, "15": PeaceSignArmyGuy, "16": PoliceUniform, "17": PrincessDress, "18": PrisonJumpsuit, "19": PsychoChibi, "20": RainCoat, "21": RedBody, "22": Robe, "23": SamarauiOutFit, "24": SGBHoodie, "25": Skeleton, "26": SpaceSuit, "27": UnicornOnsie, "28": WhiteTuxedo // ... other bodies
+        "0": robotBody, "1": originalBody,"2": greenBody, "3": goldTuxedo, "4": old1800sOutfit, "5": AlienHoodie, "6": BlueBody, "7": ChefsCoat, "8": ClownOutfit, "9": ConstructionOutfit, "10": FireFighter, "11": GreenBody, "12": GreyBody, "13": MonkeyTorso, "14": NativeOutfit, "15": PeaceSignArmyGuy, "16": PoliceUniform, "17": PrincessDress, "18": PrisonJumpsuit, "19": PsychoChibi, "20": RainCoat, "21": RedBody, "22": Robe, "23": SamarauiOutFit, "24": SGBHoodie, "25": Skeleton, "26": SpaceSuit, "27": UnicornOnsie, "28": WhiteTuxedo, "29": PicklesWarfare // ... other bodies
     },
     backOptions: {
         "0": AK, "1": AngelWings, "2": RocketLauncher, "3": SongbirdSlugger, "4": UnicornAK // ... other backs
